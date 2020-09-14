@@ -123,8 +123,14 @@
             <div class="element-form">
                 <label>Metode Pembayaran : </label>
                 <span>
-                    <input type="radio" id="cod" name="metode_pembayaran" value="cod" onclick="cek_ongkir(this.value)"><label for="cod">COD</label>
-                    <input type="radio" id="tf" name="metode_pembayaran" value="tf" onclick="cek_ongkir(this.value)"><label for="tf">Transfer Bank</label>
+                    <input type="radio" id="cod" name="metode_pembayaran" value="cod" onclick="cek_ongkir(this.value)">
+                    <span style="display: inline-block;">
+                        <label for="cod">COD</label>
+                    </span>
+                    <input type="radio" id="tf" name="metode_pembayaran" value="tf" onclick="cek_ongkir(this.value)">
+                    <span style="display: inline-block;">
+                        <label for="tf">Transfer Bank</label>
+                    </span>
                 </span>
             </div>
 
