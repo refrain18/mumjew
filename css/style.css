@@ -503,3 +503,17 @@ a.submit-my-profile {
     padding: 5px 10px;
     border-radius: 3px;
 }
+
+.swal-overlay {
+    background-color: rgba(43, 165, 137, 0.45);
+    
+  }
+
+.swal-button {
+    padding: 7px 19px;
+    border-radius: 2px;
+    background-color: #08a164;
+    font-size: 12px;
+    border: 1px solid #08a164;
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+  }

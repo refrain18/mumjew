@@ -100,12 +100,17 @@
 
     </div>
 
+    <!-- library sweetalert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <?php
         if (isset($_GET['add_status'])) {
             echo "
             <script>
             $(document).ready(function(){
-                alert('Berhasil memasukan barang ke keranjang')
+                swal({
+                  text: 'Berhasil memasukan barang ke keranjang',
+                  button: 'Oke'
+                })
                 window.history.replaceState({}, document.title, '/' + 'index.php')
             })
             </script>";
