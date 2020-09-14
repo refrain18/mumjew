@@ -1,5 +1,5 @@
 <?php
-    define("BASE_URL", "http://localhost/mumjew/");
+    define("BASE_URL", "http://localhost/My%20File/Kuliah/aplikasi-abka/mumjew/");
 
     $arrayStatusPesanan[1] = "Menunggu Pembayaran";
     $arrayStatusPesanan[2] = "Pembayaran Sedang Di Validasi";
