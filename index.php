@@ -198,10 +198,10 @@
           }
 
           // Debug
-          console.log(
-            res.data.rajaongkir.results[key]['province_id'],
-            res.data.rajaongkir.results[key]['province']
-          );
+          // console.log(
+          //   res.data.rajaongkir.results[key]['province_id'],
+          //   res.data.rajaongkir.results[key]['province']
+          // );
         }
       };
 

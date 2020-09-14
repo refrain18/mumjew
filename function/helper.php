@@ -1,5 +1,5 @@
 <?php
-    define("BASE_URL", "http://localhost/My%20File/Kuliah/aplikasi-abka/mumjew/");
+    define("BASE_URL", "http://localhost/mumtaza/mumjew/");
 
     $arrayStatusPesanan[1] = "Menunggu Pembayaran";
     $arrayStatusPesanan[2] = "Pembayaran Sedang Di Validasi";
@@ -135,7 +135,7 @@ function curl_get($url) {
     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
     CURLOPT_CUSTOMREQUEST => "GET",
     CURLOPT_HTTPHEADER => array(
-      "key: aeec1b4683f661b22e3702de11e30fe9"
+      "key: 7ddd92cb7f6fb4c7b655117e8848132f"
     ),
   ));
 
@@ -173,7 +173,7 @@ function curl_post($url, $params) {
     CURLOPT_POSTFIELDS => "origin={$params[0]}&destination={$params[1]}&weight=1700&courier={$params[2]}",
     CURLOPT_HTTPHEADER => array(
       "content-type: application/x-www-form-urlencoded",
-      "key: aeec1b4683f661b22e3702de11e30fe9"
+      "key: 7ddd92cb7f6fb4c7b655117e8848132f"
     ),
   ));
 
