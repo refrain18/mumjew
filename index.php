@@ -119,65 +119,267 @@
     // Menghilangkan Notif dalam interval waktu tertentu
     $('#notif').delay(3000).fadeOut(300);
 
-    function get_ongkir($id_kota_tujuan) {
-        const xhr = new XMLHttpRequest();
-        var res;
+    // Sub Func untuk menarik list kota berdasarkan provinsi tujuan
+    function get_list_kota(id_provinsi) {
+      const xhr = new XMLHttpRequest();
+      var params = `?id_province=${id_provinsi}`;
+      var res;
 
-        // Get Ongkir - Response Handler
-        xhr.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("demo").innerHTML = this.responseText;
+      // Response Blok - Get City List
+      xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+
+          // Convert Json String to JSON
+          res = JSON.parse(this.responseText);
+
+          // Response Handler
+          if (res.status) {
+            // Clear <Option> from Data List of data-kota
+            document.querySelector('#data-kota').innerHTML = '';
+
+            // Deploy Response
+            for (key in res.data.rajaongkir.results) {
+              // Create  Element Data List City by Province
+              var datalist_kota = document.querySelector('#data-kota');
+              var opt = document.createElement("OPTION");
+              opt.setAttribute("value", res.data.rajaongkir.results[key]['city_name']);
+              datalist_kota.appendChild(opt);
             }
-        };
+          } else {
+            // Error Response
+            alert(`Terjadi kesalahan pada Server ${res.message}`);
+          }
 
-        // Get Ongkir - Set Request
-        xhr.open("GET", "request/get_ongkir.php", true);
-        xhr.send();
+          // debugg
+          console.log(
+            res.data.rajaongkir.results[key]['city_id'],
+            res.data.rajaongkir.results[key]['city_name']
+          );
+        }
+      };
+
+      // Send Request
+      xhr.open("GET", "request/get_list_kota_by_provinsi.php" + params, true);
+      xhr.send();
     }
 
-    // Fungsi untuk mengcek ongkos kirim
-    function cek_ongkir() {
-        alert("Proses Cek Ongkir");
-        const xhr = new XMLHttpRequest();
-        const nama_provinsi_tujuan = document.querySelector('#kota_tujuan').value;
-        var res, id_kota_tujuan;
+    // Func untuk update list kota tujuan
+    function update_list_kota(nama_provinsi_tujuan) {
+      alert("Menjalankan Fungsi Update List Kota! Tunggu beberapa detik sampai list pada input kota terupdate...");
+      const xhr = new XMLHttpRequest();
+      var res;
+      var id_provinsi_tujuan;
 
+      // Response Blok
+      xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          // Convert Json String to JSON
+          res = JSON.parse(this.responseText);
 
-        // Get id Kota - Response Handler
-        xhr.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                res = JSON.parse(this.responseText);
-                
-                // document.querySelector('#datacont').innerHTML = res.rajaongkir.results[0].province;
-                for(key in res.rajaongkir.results) {
-                    if (res.rajaongkir.results[key]['province'] == nama_provinsi_tujuan) {                 
-                        console.log(
-                            res.rajaongkir.results[key]['province_id'], 
-                            res.rajaongkir.results[key]['province']
-                        );
-                        id_kota_tujuan = res.rajaongkir.results[key]['province_id'];
-                    }
+          // Response Handler
+          if (res.status) {
+            // Deploy Response
+            for (key in res.data.rajaongkir.results) {
+              // Get Province ID by given Province NAME
+              if (res.data.rajaongkir.results[key]['province'] == nama_provinsi_tujuan) {
+                // Get Province ID
+                id_provinsi_tujuan = res.data.rajaongkir.results[key]['province_id'];
+              }
+            }
+
+            // Get List City by Province ID
+            if (id_provinsi_tujuan) {
+              // Jalankan Fungsi
+              get_list_kota(id_provinsi_tujuan);
+            }
+          } else {
+            // Error Response
+            alert(`Terjadi kesalahan pada Server ${res.message}`);
+          }
+
+          // Debug
+          console.log(
+            res.data.rajaongkir.results[key]['province_id'],
+            res.data.rajaongkir.results[key]['province']
+          );
+        }
+      };
+
+      // Send Request
+      xhr.open("GET", "request/get_list_provinsi.php", true);
+      xhr.send();
+    }
+
+    // Sub Func untuk mengecek jangkauan Kurir Toko Mumtaza
+    function cek_jangkauan_kurir_toko(kota_tujuan, metode_pembayaran) {
+      const xhr = new XMLHttpRequest();
+      const params = `?kota_tujuan=${kota_tujuan}`;
+      var res;
+
+      // Response Blok
+      xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          // Convert Json String to JSON
+          res = JSON.parse(this.responseText);
+
+          // Response Handler
+          if (res.status) {
+            // Persiapan Parent
+            var parent_kurir = document.querySelector('#daftar_metode_pengiriman');
+
+            // Response
+            if (res.data != '') {
+              if (metode_pembayaran == 'cod') {
+                if (parent_kurir.querySelectorAll('.kurir_tambahan')) {
+                  var opt_grp = parent_kurir.querySelectorAll(".kurir_tambahan");
+                  opt_grp.forEach(function(el) {
+                    el.remove();
+                  });
                 }
+              }
+              // Info Kurir Mumtaza
+              alert(res.message);
+            } else {
+              if (metode_pembayaran == 'tf') {
+                if (parent_kurir.querySelector('#kurir_mumtaza')) {
+                  var kurir_opt = document.querySelector("#kurir_mumtaza");
+                  kurir_opt.parentNode.removeChild(kurir_opt);
+                }
+              } else if (metode_pembayaran == 'cod') {
+                // Membersihkan Opsi Metode Pengiriman
+                if (parent_kurir.querySelector('#kurir_mumtaza')) {
+                  // Hapus Semua Opsi Metode Pengiriman
+                  parent_kurir.innerHTML = '';
 
-                // Get ongkir
-                get_ongkir(id_kota_tujuan);
+                  // Membuat Option Default
+                  var new_opt = document.createElement("OPTION");
+                  new_opt.innerHTML = '-Pilih-';
+                  parent_kurir.appendChild(new_opt);
+                }
+              }
+
+              // Info Kurir Mumtaza
+              alert(res.message);
             }
-        };
+          } else {
+            // Error Response
+            alert(`Terjadi kesalahan pada Server ${res.message}`);
+          }
 
-        // Get id Kota - Set Request
-        xhr.open("GET", "request/get_list_provinsi.php", true);
-        xhr.send();
+          // Debug
+          console.log(res);
+        }
+      };
+
+      // Send Request
+      xhr.open("GET", "request/cek_jangkauan_kurir_mumtaza.php" + params, true);
+      xhr.send();
     }
 
-    // function cek_jangkauan_kurir() {
-    //     alert('Berhasil');
-    // }
+    // Func untuk mengecek ongkir berdasarkan kota asal & tujuan
+    function cek_ongkir(metode_pembayaran) {
+      alert("Menjalankan Fungsi Cek Ongkir! Tunggu beberapa detik sampai list Metode Pengiriman terupdate...");
+      const xhr = new XMLHttpRequest();
+      var kota_tujuan = document.querySelector('#input_kota').value ? document.querySelector('#input_kota').value : '';
+      const params = `?kota_tujuan=${kota_tujuan}`;
+      var res;
 
-//   function ubah_list_kota() {
-//     const xhr = new XMLHttpRequest();
-//     xhr.open('GET', 'https://kodepos-2d475.firebaseio.com/list_kotakab/.json')
-//     alert('Berhasil');
-//   }
+      // Response Blok
+      xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          // Convert Json String to JSON
+          res = JSON.parse(this.responseText);
+
+          // Response Handler
+          if (res.status) {
+            // Persiapan Parent
+            var parent_kurir = document.querySelector('#daftar_metode_pengiriman');
+
+            // Bersihkan Option Metode Pengiriman
+            if (parent_kurir.querySelector('#kurir_mumtaza')) {
+              var kurir_opt = document.querySelector("#kurir_mumtaza");
+              kurir_opt.parentNode.removeChild(kurir_opt);
+            }
+            if (parent_kurir.querySelectorAll('.kurir_tambahan')) {
+              var opt_grp = parent_kurir.querySelectorAll(".kurir_tambahan");
+              opt_grp.forEach(function(el) {
+                el.remove();
+              });
+            }
+
+            // Membuat Option Group Default
+            var new_opt_group = document.createElement("OPTGROUP");
+            new_opt_group.setAttribute("label", "MUMTAZA");
+            new_opt_group.setAttribute("id", "kurir_mumtaza");
+            // Membuat Daftar Paket Kurir
+            var new_opt = document.createElement("OPTION");
+            new_opt.setAttribute("value", 'mumtaza_express');
+            new_opt.innerHTML = `Paket Express (Free)`;
+            new_opt_group.appendChild(new_opt);
+            // Menambahkan Opt Group ke Parent
+            parent_kurir.appendChild(new_opt_group);
+
+            // Deploy Response for JNE
+            if (res.data.jne) {
+              // Membuat Option Group
+              var new_opt_group = document.createElement("OPTGROUP");
+              new_opt_group.setAttribute("label", "JNE");
+              new_opt_group.setAttribute("class", "kurir_tambahan");
+
+              // Membuat Daftar Paket Kurir
+              for (key in res.data.jne) {
+                var new_opt = document.createElement("OPTION");
+                new_opt.setAttribute("value", res.data.jne[key]['service']);
+                new_opt.innerHTML = `Paket ${res.data.jne[key]['service']} (${res.data.jne[key].cost[0].value})`;
+                new_opt_group.appendChild(new_opt);
+              }
+
+              // Menambahkan Opt Group ke Parent
+              parent_kurir.appendChild(new_opt_group);
+            }
+
+            // Deploy Response for TIKI
+            if (res.data.tiki) {
+              // Membuat Option Group
+              var new_opt_group = document.createElement("OPTGROUP");
+              new_opt_group.setAttribute("label", "TIKI");
+              new_opt_group.setAttribute("class", "kurir_tambahan");
+
+              // Membuat Daftar Paket Kurir
+              for (key in res.data.tiki) {
+                var new_opt = document.createElement("OPTION");
+                new_opt.setAttribute("value", res.data.tiki[key]['service']);
+                new_opt.innerHTML = `Paket ${res.data.tiki[key]['service']} (${res.data.tiki[key].cost[0].value})`;
+                new_opt_group.appendChild(new_opt);
+              }
+
+              // Menambahkan Opt Group ke Parent
+              parent_kurir.appendChild(new_opt_group);
+            }
+
+            // Cek Metode Pembayaran
+            if (metode_pembayaran == 'tf') {
+              // Cek Jangkauan Kurir Mumtaza
+              cek_jangkauan_kurir_toko(kota_tujuan, metode_pembayaran);
+            } else if (metode_pembayaran == 'cod') {
+              // Cek Jangkauan Kurir Mumtaza
+              cek_jangkauan_kurir_toko(kota_tujuan, metode_pembayaran);
+            }
+
+          } else {
+            // Error Response
+            alert(`Terjadi kesalahan pada Server ${res.message}`);
+          }
+
+          // Debug
+          console.log(res);
+        }
+      };
+
+      // Send Request
+      xhr.open("GET", "request/get_ongkir.php" + params, true);
+      xhr.send();
+    }
 
 </script>
 

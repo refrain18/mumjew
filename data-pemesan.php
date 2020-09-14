@@ -75,7 +75,7 @@
 
             <div class="element-form">
                 <label>Provinsi</label>
-                <span><input type="text" id="provinsi_tujuan" name="provinsi" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['provinsi'] : $provinsi; ?>" list="data-provinsi" <?php echo $akses?>/></span>
+                <span><input type="text" id="input_provinsi" name="provinsi" list="data-provinsi" onchange="update_list_kota(this.value);" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['provinsi'] : $provinsi; ?>" <?php echo $akses?>/></span>
             </div>
             
             <?php if(isset($list_provinsi) && is_array($list_provinsi)) : ?>
@@ -88,7 +88,11 @@
 
             <div class="element-form">
                 <label>Kota</label>
-                <span><input type="text" id="kota_tujuan" name="kota" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['kota'] : $kota; ?>" <?php echo $akses?>/></span>
+                <span><input type="text" id="input_kota" name="kota" list="data-kota" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['kota'] : $kota; ?>" <?php echo $akses?>/></span>
+                
+                <datalist id="data-kota">
+                    <!-- Data Kota -->
+                </datalist>
             </div>
 
             <div class="element-form">
@@ -117,41 +121,22 @@
             <span><hr></span>
  
             <div class="element-form">
-                <label>Metode Pengiriman</label>
+                <label>Metode Pembayaran : </label>
                 <span>
-                    <select name="metode_pengiriman" onchange="cek_ongkir(this.value)">
-                        <option value="kurir_mumtaza">Kurir Mumtaza</option>
-                        <option value="jne">JNE YES (<? //echo $ongkir['rajaongkir']['tarif'] ?>)</option>
-                        <option value="jne">JNE OKE</option>
-                        <option value="jne">JNE REG</option>
-                        <option value="tiki">TIKI</option>
-                    </select>
-                    <!-- <input type="hidden" name="ongkir" value="35000"> -->
-
+                    <input type="radio" id="cod" name="metode_pembayaran" value="cod" onclick="cek_ongkir(this.value)"><label for="cod">COD</label>
+                    <input type="radio" id="tf" name="metode_pembayaran" value="tf" onclick="cek_ongkir(this.value)"><label for="tf">Transfer Bank</label>
                 </span>
             </div>
-
-            <!-- <div class="element-form">
-                <label>Ongkos Kirim</label>
-                <span>
-                    <input type="number" name="tarif" id="tarif" value="35000" readonly>
-                </span>
-            </div> -->
 
             <div class="element-form">
-                <label>Metode Pembayaran</label>
+                <label>Metode Pengiriman : </label>
                 <span>
-                    <select name="metode_pembayaran">
-                        <option value="cod">Cash On Delivery (COD)</option>
-                        <option value="transfer">Transfer Bank</option>
-                        <option value="transfer">OVO</option>
-                        <option value="transfer">DANA</option>
+                    <select name="metode_pengiriman" id="daftar_metode_pengiriman">
+                        <option selected>-Pilih-</option>
+                        <!-- Opsi akan muncul setelah memilih Metode Pembayaran -->
                     </select>
-                    <!-- <input type="radio" name="metode_pembayaran" value="cod" />COD
-                    <input type="radio" name="metode_pembayaran" value="transfer" />Transfer -->
                 </span>
             </div>
-
 
             <div class="element-form">
                 <span><input type="submit" value="submit"/></span>

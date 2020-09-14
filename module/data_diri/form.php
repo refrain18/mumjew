@@ -61,7 +61,7 @@
 
     <div class="element-form">
         <label>Provinsi</label>
-        <span><input type="text" id="input_provinsi" name="provinsi" value="<?php echo $provinsi; ?>" list="data-provinsi" onchange="ubah_list_kota()" <?php echo $akses?>/></span>
+        <span><input type="text" id="input_provinsi" name="provinsi" value="<?php echo $provinsi; ?>" list="data-provinsi" onchange="update_list_kota(this.value);" <?php echo $akses?>/></span>
 
         <?php if(isset($list_provinsi) && is_array($list_provinsi)) : ?>
             <datalist id="data-provinsi">
@@ -75,7 +75,11 @@
 
     <div class="element-form">
         <label>Kota</label>
-        <span><input type="text" name="kota" value="<?php echo $kota; ?>" <?php echo $akses?>/></span>
+        <span><input type="text" id="input_kota" name="kota" list="data-kota" value="<?php echo $kota; ?>" <?php echo $akses?>/></span>
+
+        <datalist id="data-kota">
+            <!-- Data Kota -->
+        </datalist>
     </div>
 
     <div class="element-form">
