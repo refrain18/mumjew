@@ -19,8 +19,8 @@
     if (!empty($_POST)) {
         // Update Data
         $data_diri_baru = [
-            'nama' => $_POST['nama'],
-            'phone' => $_POST['phone'],
+            'nm_penerima' => $_POST['nama_penerima'],
+            'no_tlp' => $_POST['nomor_telepon'],
             'provinsi' => $_POST['provinsi'],
             'kota' => $_POST['kota'],
             'kode_pos' => $_POST['kode_pos'],
@@ -48,10 +48,12 @@
         $akses = '';
         $hidden = '';
         $form_act = 'index.php?page=data-pemesan';
+        $dis = 'disabled';
     } else {
         $akses = 'readonly';
         $hidden = 'hidden';
         $form_act = 'index.php?page=proses_pemesanan';
+        $dis = '';
     }
 ?>
 
@@ -65,17 +67,17 @@
 
             <div class="element-form">
                 <label>Nama Penerima</label>	
-                <span><input type="text" name="nama_penerima" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['nama'] : $nama; ?>" <?php echo $akses?>/></span>
+                <span><input type="text" name="nama_penerima" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['nm_penerima'] : $nama; ?>" <?php echo $akses?> required/></span>
             </div>
 
             <div class="element-form">
                 <label>Nomor Telepon</label>	
-                <span><input type="text" name="nomor_telepon" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['phone'] : $phone; ?>" <?php echo $akses?>/></span>
+                <span><input style=" width : 98%; height : 23px;" type="number" name="nomor_telepon" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['no_tlp'] : $phone; ?>" <?php echo $akses?> required/></span>
             </div>	
 
             <div class="element-form">
                 <label>Provinsi</label>
-                <span><input type="text" id="input_provinsi" name="provinsi" list="data-provinsi" onchange="update_list_kota(this.value);" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['provinsi'] : $provinsi; ?>" <?php echo $akses?>/></span>
+                <span><input type="text" id="input_provinsi" name="provinsi" list="data-provinsi" onchange="update_list_kota(this.value);" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['provinsi'] : $provinsi; ?>" <?php echo $akses?> required/></span>
             </div>
             
             <?php if(isset($list_provinsi) && is_array($list_provinsi)) : ?>
@@ -88,7 +90,7 @@
 
             <div class="element-form">
                 <label>Kota</label>
-                <span><input type="text" id="input_kota" name="kota" list="data-kota" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['kota'] : $kota; ?>" <?php echo $akses?>/></span>
+                <span><input type="text" id="input_kota" name="kota" list="data-kota" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['kota'] : $kota; ?>" <?php echo $akses?> required/></span>
                 
                 <datalist id="data-kota">
                     <!-- Data Kota -->
@@ -97,12 +99,12 @@
 
             <div class="element-form">
                 <label>Kode Pos</label>
-                <span><input type="text" name="kode_pos" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['kode_pos'] : $kode_pos; ?>" <?php echo $akses?>/></span>
+                <span><input style=" width : 98%; height : 23px;" type="number" name="kode_pos" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['kode_pos'] : $kode_pos; ?>" <?php echo $akses?> required/></span>
             </div>
 
             <div class="element-form">
                 <label>Alamat Pengiriman</label>	
-                <span><textarea name="alamat" id="" cols="30" rows="5" <?php echo $akses?>><?php echo !empty($data_diri_baru) ? $data_diri_baru['alamat'] : $alamat; ?></textarea></span>
+                <span><textarea name="alamat" id="" cols="30" rows="5" <?php echo $akses?> required><?php echo !empty($data_diri_baru) ? $data_diri_baru['alamat'] : $alamat; ?> </textarea></span>
             </div>
 
             <div class="element-form">
@@ -123,11 +125,11 @@
             <div class="element-form">
                 <label>Metode Pembayaran : </label>
                 <span>
-                    <input type="radio" id="cod" name="metode_pembayaran" value="cod" onclick="cek_ongkir(this.value)">
+                    <input type="radio" id="cod" name="metode_pembayaran" value="cod" onclick="cek_ongkir(this.value)" <?php echo $dis ?> required>
                     <span style="display: inline-block;">
                         <label for="cod">COD</label>
                     </span>
-                    <input type="radio" id="tf" name="metode_pembayaran" value="tf" onclick="cek_ongkir(this.value)">
+                    <input type="radio" id="tf" name="metode_pembayaran" value="tf" onclick="cek_ongkir(this.value)" <?php echo $dis ?> required>
                     <span style="display: inline-block;">
                         <label for="tf">Transfer Bank</label>
                     </span>
@@ -137,8 +139,8 @@
             <div class="element-form">
                 <label>Metode Pengiriman : </label>
                 <span>
-                    <select name="metode_pengiriman" id="daftar_metode_pengiriman">
-                        <option selected>-Pilih-</option>
+                    <select name="metode_pengiriman" id="daftar_metode_pengiriman" <?php echo $dis ?> required >
+                        <option value="" selected>-Pilih-</option>
                         <!-- Opsi akan muncul setelah memilih Metode Pembayaran -->
                     </select>
                 </span>
