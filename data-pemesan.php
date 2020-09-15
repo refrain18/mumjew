@@ -49,7 +49,7 @@
         $hidden = '';
         $form_act = 'index.php?page=data-pemesan';
     } else {
-        $akses = 'disabled';
+        $akses = 'readonly';
         $hidden = 'hidden';
         $form_act = 'index.php?page=proses_pemesanan';
     }
@@ -65,12 +65,12 @@
 
             <div class="element-form">
                 <label>Nama Penerima</label>	
-                <span><input type="text" name="nama" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['nama'] : $nama; ?>" <?php echo $akses?>/></span>
+                <span><input type="text" name="nama_penerima" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['nama'] : $nama; ?>" <?php echo $akses?>/></span>
             </div>
 
             <div class="element-form">
                 <label>Nomor Telepon</label>	
-                <span><input type="text" name="phone" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['phone'] : $phone; ?>" <?php echo $akses?>/></span>
+                <span><input type="text" name="nomor_telepon" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['phone'] : $phone; ?>" <?php echo $akses?>/></span>
             </div>	
 
             <div class="element-form">

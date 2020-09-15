@@ -1,8 +1,8 @@
 <?php
 	
 	$pesanan_id= $_GET["pesanan_id"];
-	
-	$query = mysqli_query($koneksi, "SELECT pesanan.metode_pengiriman pesanan.metode_pembayaran, pesanan.nama_penerima, pesanan.nomor_telepon, pesanan.alamat, pesanan.tanggal_pemesanan, user.nama, kota.kota, kota.tarif FROM pesanan JOIN user ON pesanan.user_id=user.user_id JOIN kota ON kota.kota_id=pesanan.kota_id WHERE pesanan.pesanan_id='$pesanan_id'");
+		
+	$query = mysqli_query($koneksi, "SELECT pesanan.metode_pengiriman, pesanan.metode_pembayaran, pesanan.nama_penerima, pesanan.nomor_telepon, pesanan.alamat, pesanan.tanggal_pemesanan, user.nama FROM pesanan JOIN user ON pesanan.user_id=user.user_id WHERE pesanan.pesanan_id='$pesanan_id'") OR die(mysqli_error($koneksi));
 	
 	$row=mysqli_fetch_assoc($query);
 	
@@ -10,11 +10,9 @@
 	$nama_penerima = $row['nama_penerima'];
 	$nomor_telepon = $row['nomor_telepon'];
 	$alamat = $row['alamat'];
-	$tarif = $row['tarif'];
 	$nama = $row['nama'];
-	$kota = $row['kota'];
-	$mtd_pembayaran = $row['metode_pembayaran'];
 	$mtd_pengiriman = $row['metode_pengiriman'];
+	$mtd_pembayaran = $row['metode_pembayaran'] == 'tf' ? 'Transfer': 'COD';
 	
 ?>
 
@@ -82,7 +80,9 @@
 		<?php
 		
 			$queryDetail = mysqli_query($koneksi, "SELECT pesanan_detail.*, barang.nama_barang FROM pesanan_detail JOIN barang ON 
-            pesanan_detail.barang_id=barang.barang_id WHERE pesanan_detail.pesanan_id='$pesanan_id'");
+			pesanan_detail.barang_id=barang.barang_id WHERE pesanan_detail.pesanan_id='$pesanan_id'")  OR die(mysqli_error($koneksi));
+			
+			// $row=mysqli_fetch_array($queryDetail);
 			
 			$no = 1;
 			$subtotal = 0;
@@ -99,16 +99,18 @@
 						<td class='kanan'>".rupiah($total)."</td>
 					  </tr>";
 				
+				// Ambil biaya pengiriman dari tb pesanan_detail
+				$biaya_pengiriman = $rowDetail['biaya_pengiriman'];
 				$no++;
 			}
 			
-			$subtotal = $subtotal + $tarif;
+			$subtotal = $subtotal + $biaya_pengiriman;
 	
 		?>
 
 		<tr>
 			<td class="kanan" colspan="4">Biaya Pengiriman</td>
-			<td class="kanan"><?php echo rupiah($tarif); ?></td>
+			<td class="kanan"><?php echo rupiah($biaya_pengiriman); ?></td>
 		</tr>
 
 		<tr>
@@ -119,12 +121,12 @@
 	</table>
 	
 <div id="frame-keterangan-pembayaran">
-	<?php if ($mtd_pembayaran == "cod") :?>
+	<?php if ($mtd_pembayaran == "COD") :?>
 		<p>
 			Silahkan konfirmasi pembayaran jika sudah menyelesaikan transaksi
 			<a href="<?php echo BASE_URL."module/pesanan/action.php?pesanan_id=$pesanan_id&button=konfirmasi_cod"?>">Konfirmasi</a>.
 		</p>
-	<?php elseif($mtd_pembayaran == "transfer") :?>
+	<?php elseif($mtd_pembayaran == "Transfer") :?>
 		<p>
 			Silahkan lakukan pembayaran ke Bank ABC<br/>
 			Nomor Account : 0000-9999-8888 (D/W Mumtaza).<br/>
