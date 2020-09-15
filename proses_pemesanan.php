@@ -10,12 +10,13 @@
     $alamat = $_POST["alamat"];
     $kota = $_POST["kota"];
     $mtd_bayar = $_POST["metode_pembayaran"];
+    $mtd_kirim = $_POST["metode_pengiriman"];
 
     $user_id = $_SESSION['user_id'];
     $waktu_saat_ini = date("Y-m-d H:i:s");
 
-    $query = mysqli_query($koneksi, "INSERT INTO pesanan (nama_penerima, user_id, nomor_telepon, kota_id, alamat, tanggal_pemesanan ,metode_pembayaran, status)
-                                                 VALUES ('$nama_penerima', '$user_id', '$nomor_telepon', '$kota', '$alamat', '$waktu_saat_ini', '$mtd_bayar', '1')");
+    $query = mysqli_query($koneksi, "INSERT INTO pesanan (nama_penerima, user_id, nomor_telepon, kota_id, alamat, tanggal_pemesanan ,metode_pembayaran, metode_pengiriman status)
+                                                 VALUES ('$nama_penerima', '$user_id', '$nomor_telepon', '$kota', '$alamat', '$waktu_saat_ini', '$mtd_bayar', '$mtd_kirim', '1')");
 
     if($query){
         $last_pesanan_id = mysqli_insert_id($koneksi);

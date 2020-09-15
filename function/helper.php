@@ -135,7 +135,7 @@ function curl_get($url) {
     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
     CURLOPT_CUSTOMREQUEST => "GET",
     CURLOPT_HTTPHEADER => array(
-      "key: 7ddd92cb7f6fb4c7b655117e8848132f"
+      "key: aeec1b4683f661b22e3702de11e30fe9"
     ),
   ));
 
@@ -173,7 +173,7 @@ function curl_post($url, $params) {
     CURLOPT_POSTFIELDS => "origin={$params[0]}&destination={$params[1]}&weight=1700&courier={$params[2]}",
     CURLOPT_HTTPHEADER => array(
       "content-type: application/x-www-form-urlencoded",
-      "key: 7ddd92cb7f6fb4c7b655117e8848132f"
+      "key: aeec1b4683f661b22e3702de11e30fe9"
     ),
   ));
 

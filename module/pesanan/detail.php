@@ -2,7 +2,7 @@
 	
 	$pesanan_id= $_GET["pesanan_id"];
 	
-	$query = mysqli_query($koneksi, "SELECT pesanan.metode_pembayaran, pesanan.nama_penerima, pesanan.nomor_telepon, pesanan.alamat, pesanan.tanggal_pemesanan, user.nama, kota.kota, kota.tarif FROM pesanan JOIN user ON pesanan.user_id=user.user_id JOIN kota ON kota.kota_id=pesanan.kota_id WHERE pesanan.pesanan_id='$pesanan_id'");
+	$query = mysqli_query($koneksi, "SELECT pesanan.metode_pengiriman pesanan.metode_pembayaran, pesanan.nama_penerima, pesanan.nomor_telepon, pesanan.alamat, pesanan.tanggal_pemesanan, user.nama, kota.kota, kota.tarif FROM pesanan JOIN user ON pesanan.user_id=user.user_id JOIN kota ON kota.kota_id=pesanan.kota_id WHERE pesanan.pesanan_id='$pesanan_id'");
 	
 	$row=mysqli_fetch_assoc($query);
 	
@@ -14,6 +14,7 @@
 	$nama = $row['nama'];
 	$kota = $row['kota'];
 	$mtd_pembayaran = $row['metode_pembayaran'];
+	$mtd_pengiriman = $row['metode_pengiriman'];
 	
 ?>
 
@@ -55,6 +56,11 @@
 			<td>:</td>
 			<td><?php echo $tanggal_pemesanan; ?></td>
 		</tr>
+		<tr>
+			<td>Metode Pengiriman</td>
+			<td>:</td>
+			<td><?php echo $mtd_pengiriman; ?></td>
+		</tr>	
 		<tr>
 			<td>Metode Pembayaran</td>
 			<td>:</td>

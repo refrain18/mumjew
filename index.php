@@ -318,7 +318,7 @@
             new_opt_group.setAttribute("id", "kurir_mumtaza");
             // Membuat Daftar Paket Kurir
             var new_opt = document.createElement("OPTION");
-            new_opt.setAttribute("value", 'mumtaza_express');
+            new_opt.setAttribute("value", 'mumtaza_express_0');
             new_opt.innerHTML = `Paket Express (Free)`;
             new_opt_group.appendChild(new_opt);
             // Menambahkan Opt Group ke Parent
@@ -334,7 +334,7 @@
               // Membuat Daftar Paket Kurir
               for (key in res.data.jne) {
                 var new_opt = document.createElement("OPTION");
-                new_opt.setAttribute("value", res.data.jne[key]['service']);
+                new_opt.setAttribute("value", `jne_${res.data.jne[key]['service']}_${res.data.jne[key].cost[0].value}`);
                 new_opt.innerHTML = `Paket ${res.data.jne[key]['service']} (${res.data.jne[key].cost[0].value})`;
                 new_opt_group.appendChild(new_opt);
               }
@@ -353,7 +353,7 @@
               // Membuat Daftar Paket Kurir
               for (key in res.data.tiki) {
                 var new_opt = document.createElement("OPTION");
-                new_opt.setAttribute("value", res.data.tiki[key]['service']);
+                new_opt.setAttribute("value", `tiki_${res.data.tiki[key]['service']}_${res.data.tiki[key].cost[0].value}`);
                 new_opt.innerHTML = `Paket ${res.data.tiki[key]['service']} (${res.data.tiki[key].cost[0].value})`;
                 new_opt_group.appendChild(new_opt);
               }
