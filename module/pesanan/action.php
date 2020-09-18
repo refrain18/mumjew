@@ -8,28 +8,23 @@
 	$button = isset($_POST['button']) ? $_POST['button'] : $_GET['button'];
 	$pesanan_id = isset($_GET['pesanan_id']) ? $_GET['pesanan_id'] : "";
 	
-	// var_dump($button, $pesanan_id);
-	// die();
-	
 	if($button == "Konfirmasi"){
 		
 		$user_id = $_SESSION["user_id"];
 
-		$nomor_rekening = isset($_GET['nomor_rekening']) ? $_GET['nomor_rekening'] : false;
-		$nama_account = isset($_GET['nama_account']) ? $_GET['nama_account'] : false;
-		$tanggal_transfer = isset($_GET['tanggal_transfer']) ? $_GET['tanggal_transfer'] : false;
-		
+		$nomor_rekening = isset($_POST['nomor_rekening']) ? $_POST['nomor_rekening'] : false;
+		$nama_account = isset($_POST['nama_account']) ? $_POST['nama_account'] : false;
+		$bukti_pembayaran = isset($_POST['bukti_pembayaran']) ? $_POST['bukti_pembayaran'] : false;
+		$tanggal_transfer = isset($_POST['tanggal_transfer']) ? $_POST['tanggal_transfer'] : false;
+
 		$queryPembayaran = mysqli_query($koneksi, "INSERT INTO 
-													konfirmasi_pembayaran (pesanan_id, nomor_rekening, nama_account, tanggal_transfer)
+													konfirmasi_pembayaran (pesanan_id, nomor_rekening, nama_account, bukti_pembayaran, tanggal_transfer)
 												   VALUES 
-												   	('$pesanan_id', '$nomor_rekening', '$nama_account', '$tanggal_transfer')");
+												   	('$pesanan_id', '$nomor_rekening', '$nama_account', '$bukti_pembayaran', '$tanggal_transfer')");
 																			
 		if($queryPembayaran){
 			mysqli_query($koneksi, "UPDATE pesanan SET status='2' WHERE pesanan_id='$pesanan_id'");
 		}
-		
-	} else if ($button == "konfirmasi_cod") {
-		mysqli_query($koneksi, "UPDATE pesanan SET status='2' WHERE pesanan_id='$pesanan_id'");
 	} else if($button == "Edit Status"){
 		$status = $_POST["status"];
 		

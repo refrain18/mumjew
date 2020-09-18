@@ -121,10 +121,10 @@
 	</table>
 	
 <div id="frame-keterangan-pembayaran">
-	<?php if ($mtd_pembayaran == "COD") :?>
+	<?php if ($mtd_pembayaran == "COD" && $level == 'superadmin') :?>
 		<p>
-			Silahkan konfirmasi pembayaran jika sudah menyelesaikan transaksi
-			<a href="<?php echo BASE_URL."module/pesanan/action.php?pesanan_id=$pesanan_id&button=konfirmasi_cod"?>">Konfirmasi</a>.
+			Silahkan konfirmasi pesanan jika customer sudah menyelesaikan pembayaran.
+			<a href="<?php echo BASE_URL."index.php?page=my_profile&module=pesanan&action=status&pesanan_id=$pesanan_id"?>">Konfirmasi</a>.
 		</p>
 	<?php elseif($mtd_pembayaran == "Transfer") :?>
 		<p>
@@ -132,6 +132,10 @@
 			Nomor Account : 0000-9999-8888 (D/W Mumtaza).<br/>
 			Setelah melakukan pembayaran silahkan lakukan konfirmasi pembayaran
 			<a href="<?php echo BASE_URL."index.php?page=my_profile&module=pesanan&action=konfirmasi_pembayaran&pesanan_id=$pesanan_id"?>">Disini</a>.
+		</p>
+	<?php else : ?>
+		<p>
+			Silahkan lunasi tagihan anda pada kurir Mumtaza.
 		</p>
 	<?php endif; ?>
 </div>	
