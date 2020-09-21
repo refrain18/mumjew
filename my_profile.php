@@ -38,11 +38,11 @@
             <li>
                 <a <?php if($module == "pesanan"){ echo "class='active'"; } ?> href="<?php echo BASE_URL."index.php?page=my_profile&module=pesanan&action=list";?>">Pesanan</a>
             </li>
-        <?php if($level != "superadmin"){ ?>    
+        <?php //if($level != "superadmin"){ ?>    
             <li>
                 <a <?php if($module == "data_diri"){ echo "class='active'"; } ?> href="<?php echo BASE_URL."index.php?page=my_profile&module=data_diri&action=form";?>">Data Diri</a>
             </li>
-        <?php } ?>    
+        <?php //} ?>    
         </ul>
     </div>
 
