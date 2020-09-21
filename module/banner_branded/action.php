@@ -6,7 +6,6 @@
     $bb_id = isset($_GET['bb_id']) ? $_GET['bb_id'] : "";
     
 	$banner_branded = isset($_POST['banner_branded']) ? $_POST['banner_branded'] : false;
-	$link = isset($_POST['link']) ? $_POST['link'] : false;
 	$status = isset($_POST['status']) ? $_POST['status'] : false;
      
     $edit_gambar = "";
@@ -15,18 +14,17 @@
     if($_FILES["file"]["name"] != "")
     {
         $nama_file = $_FILES["file"]["name"];
-        move_uploaded_file($_FILES["file"]["tmp_name"], "../../images/slide_bb/" . $nama_file);
+        move_uploaded_file($_FILES["file"]["tmp_name"], "../../images/bb/" . $nama_file);
          
         $edit_gambar  = ", gambar='$nama_file'";
     }
      
     if($button == "Add")
     {
-        mysqli_query($koneksi, "INSERT INTO banner_branded (banner, link, gambar, status) VALUES ('$banner_branded', '$link', '$nama_file', '$status')");
+        mysqli_query($koneksi, "INSERT INTO banner_branded (banner, link, gambar, status) VALUES ('$banner_branded', '$nama_file', '$status')");
     }
     elseif($button == "Update"){
         mysqli_query($koneksi, "UPDATE banner_branded SET banner_branded='$banner_branded',
-                                        link='$link',
                                         $edit_gambar
                                         status='$status'
 										$edit_gambar WHERE bb_id='$bb_id'");

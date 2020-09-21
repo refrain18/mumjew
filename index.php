@@ -27,11 +27,15 @@
         <link href="<?php echo BASE_URL."css/fontawesome-free-5.13.1-web/css/all.min.css"; ?>" type="text/css" rel="stylesheet" />
         <link href="<?php echo BASE_URL."css/style.css"; ?>" type="text/css" rel="stylesheet" />
 		<link href="<?php echo BASE_URL."css/banner.css"; ?>" type="text/css" rel="stylesheet" />
+		<link href="<?php echo BASE_URL."css/lightslider.css"; ?>" type="text/css" rel="stylesheet" />
+    
 		
 		<script src="<?php echo BASE_URL."js/jquery-3.1.1.min.js"; ?>"></script>
 		<script src="<?php echo BASE_URL."js/Slides-SlidesJS-3/source/jquery.slides.min.js"; ?>"></script>
 		<script src="<?php echo BASE_URL."js/script.js"; ?>"></script>
+		<script src="<?php echo BASE_URL."js/lightslider.js"; ?>"></script>
 		
+    <!-- banner -->
 		<script>
 		$(function() {
 			$('#slides').slidesjs({
@@ -43,6 +47,7 @@
 			});
 		});
 		</script>		
+
 
 </head>
 <body>
@@ -119,6 +124,15 @@
 
 <!-- JS Manual -->
 
+<!-- banner branded -->
+      <script>
+        $(document).ready(function() {
+          $("#content-slider").lightSlider({
+                    loop:true,
+                    keyPress:true
+                });
+        });
+      </script>
 <script>
 
     // Menghilangkan Notif dalam interval waktu tertentu

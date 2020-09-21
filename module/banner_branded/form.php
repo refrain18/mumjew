@@ -3,7 +3,6 @@
     $bb_id = isset($_GET['bb_id']) ? $_GET['bb_id'] : "";
        
     $banner_branded = "";
-    $link = "";
     $gambar = "";
 	$keterangan_gambar = "";
     $status = "";
@@ -18,7 +17,6 @@
         $row=mysqli_fetch_array($queryBannerBranded);
            
 		$banner_branded = $row["banner_branded"];
-		$link = $row["link"];
 		$gambar = "<img src='". BASE_URL."images/slide_bb/$row[gambar]' style='width: 200px;vertical-align: middle;' />";
 		$keterangan_gambar = "(klik 'Pilih Gambar' hanya jika tidak ingin mengganti gambar)";
 		$status = $row["status"];
@@ -31,11 +29,6 @@
 		<label>Banner Branded</label>	
 		<span><input type="text" name="banner_branded" value="<?php echo $banner_branded; ?>" /></span>
 	</div>	
-
-	<div class="element-form">
-		<label>Link</label>	
-		<span><input type="text" name="link" value="<?php echo $link; ?>" /></span>
-	</div>	   
 
 	<div class="element-form">
 		<label>Gambar <?php echo $keterangan_gambar; ?></label>	

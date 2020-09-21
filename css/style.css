@@ -517,3 +517,7 @@ a.submit-my-profile {
     border: 1px solid #08a148;
     text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
   }
+
+.banner_branded {
+   margin: 25px 0px;   
+  }

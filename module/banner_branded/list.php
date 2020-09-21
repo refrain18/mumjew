@@ -46,7 +46,6 @@
             echo "<tr class='baris-title'>
                     <th class='kolom-nomor'>No</th>
                     <th class='kiri'>Banner Branded</th>
-                    <th class='kiri'>Link</th>
                     <th class='tengah'>Status</th>
                     <th class='tengah'>Action</th>
                  </tr>";
@@ -56,7 +55,6 @@
                 echo "<tr>
                         <td class='kolom-nomor'>$no</td>
                         <td>$rowBanner[banner_branded]</td>
-                        <td><a target='blank' href='".BASE_URL."$rowBanner[link]'>$rowBanner[link]</a></td>
                         <td class='tengah'>$rowBanner[status]</td>
                         <td class='tengah'><a class='tombol-action' href='".BASE_URL."index.php?page=my_profile&module=banner_branded&action=form&bb_id=$rowBanner[bb_id]"."'>Edit</a>
                         <a class='tombol-action' href='".BASE_URL."module/banner_branded/action.php?button=Delete&bb_id=$rowBanner[bb_id]'>Delete</a></td>
