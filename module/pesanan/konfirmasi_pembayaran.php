@@ -10,7 +10,7 @@
 
 <table class="table-list">
     <?php if( $data = mysqli_fetch_array($queryKonfirmasiPembayaran)) :?>
-        <form action=<?php echo BASE_URL."module/pesanan/action.php?pesanan_id=$pesanan_id"; ?> method="POST">
+        <form action=<?php echo BASE_URL."index.php?page=my_profile&module=pesanan&action=list"; ?> method="POST">
 
             <div class="element-form">
                 <label>Nomor Rekening</label>
@@ -33,7 +33,7 @@
             </div>
 
             <div class="element-form">
-                <span><input type="submit" value="Konfirmasi" name="button" disabled/></span>
+                <span><input type="submit" value="Kembali" name="button" /></span>
             </div>
         </form> 
     <?php else : ?>
@@ -55,7 +55,7 @@
             </div>
 
             <div class="element-form">
-                <label>Tanggal Transfer (format: yyyy-mm-dd)</label>
+                <label>Tanggal Transfer (format: mm/dd/yyyy)</label>
                 <span><input type="date" name="tanggal_transfer" /></span>
             </div>
 
