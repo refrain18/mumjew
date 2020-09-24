@@ -25,24 +25,23 @@
     </div>
 
     <div class="banner_branded">
+        <div class="item">
             <ul id="content-slider" class="content-slider">
                 <?php 
-                
                 $queryBannerBranded = mysqli_query($koneksi, "SELECT * FROM banner_branded WHERE status='on' ORDER BY bb_id");
                 // while($rowBB=mysqli_fetch_array($queryBannerBranded)) {
                 //     echo "<li><img src='".BASE_URL."images/bb/$rowBB[gambar]'/></li>";
-                // }
-                 
+                // }         
                 ?>
                 
                 <?php while ($rowBB=mysqli_fetch_array($queryBannerBranded)) { ?>
                     <li>
-                    <img src="<?php echo BASE_URL ?>/images/bb/<?php echo $rowBB['gambar'] ?>">
+                    <img src="<?php echo BASE_URL ?>/images/bb-original/<?php echo $rowBB['gambar'] ?>">
                     </li>
                 <?php } ?>
-
             </ul>
         </div>
+    </div>
 
     <div id="frame-tambah">
     <div id="left">

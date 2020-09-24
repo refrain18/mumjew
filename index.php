@@ -125,14 +125,18 @@
 <!-- JS Manual -->
 
 <!-- banner branded -->
-      <script>
-        $(document).ready(function() {
-          $("#content-slider").lightSlider({
-                    loop:true,
-                    keyPress:true
-                });
-        });
-      </script>
+<script>
+  $(document).ready(function() {
+    $("#content-slider").lightSlider({
+        auto: true,
+        pauseOnHover: true,
+        item: 4,
+        loop: true,
+        // slideMargin: 3,
+        // slideWidth: 200,
+    });
+  });
+</script>
 <script>
 
     // Menghilangkan Notif dalam interval waktu tertentu
