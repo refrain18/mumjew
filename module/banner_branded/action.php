@@ -14,20 +14,20 @@
     if($_FILES["file"]["name"] != "")
     {
         $nama_file = $_FILES["file"]["name"];
-        move_uploaded_file($_FILES["file"]["tmp_name"], "../../images/bb/" . $nama_file);
+        move_uploaded_file($_FILES["file"]["tmp_name"], "../../images/bb-original/" . $nama_file);
          
         $edit_gambar  = ", gambar='$nama_file'";
     }
      
     if($button == "Add")
     {
-        mysqli_query($koneksi, "INSERT INTO banner_branded (banner, link, gambar, status) VALUES ('$banner_branded', '$nama_file', '$status')");
+        mysqli_query($koneksi, "INSERT INTO banner_branded (banner_branded, gambar, status) VALUES ('$banner_branded', '$nama_file', '$status')");
     }
     elseif($button == "Update"){
-        mysqli_query($koneksi, "UPDATE banner_branded SET banner_branded='$banner_branded',
-                                        $edit_gambar
+        mysqli_query($koneksi, "UPDATE banner_branded SET banner_branded='$banner_branded'
+                                        $edit_gambar,
                                         status='$status'
-										$edit_gambar WHERE bb_id='$bb_id'");
+										WHERE bb_id='$bb_id'");
     }
     else if($button == "Delete"){
 		mysqli_query($koneksi, "DELETE FROM banner_branded WHERE bb_id='$bb_id'");

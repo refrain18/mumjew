@@ -50,7 +50,7 @@
                     <th class='tengah'>Action</th>
                  </tr>";
     
-            while($rowBanner=mysqli_fetch_array($queryBanner))
+            while($rowBanner=mysqli_fetch_array($queryBannerBranded))
             {
                 echo "<tr>
                         <td class='kolom-nomor'>$no</td>

@@ -17,7 +17,7 @@
         $row=mysqli_fetch_array($queryBannerBranded);
            
 		$banner_branded = $row["banner_branded"];
-		$gambar = "<img src='". BASE_URL."images/slide_bb/$row[gambar]' style='width: 200px;vertical-align: middle;' />";
+		$gambar = "<img src='". BASE_URL."images/bb-original/$row[gambar]' style='width: 200px;vertical-align: middle;' />";
 		$keterangan_gambar = "(klik 'Pilih Gambar' hanya jika tidak ingin mengganti gambar)";
 		$status = $row["status"];
     }   
