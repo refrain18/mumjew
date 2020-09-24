@@ -95,7 +95,7 @@
         </div>
         
         <div id="footer">
-            <p>copyright Mumtaza Jewerly 2020</p>
+            <p>Mumtaza Jewerly by Abka Zailani</p>
         </div>
 
     </div>
