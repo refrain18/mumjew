@@ -35,10 +35,10 @@
             die();    
         } else {
         mysqli_query($koneksi, "UPDATE banner SET banner='$banner',
-                                        link='$link',
-                                        $edit_gambar
+                                        link='$link'
+                                        $edit_gambar,
                                         status='$status'
-                                        $edit_gambar WHERE banner_id='$banner_id'");
+                                        WHERE banner_id='$banner_id'");
         header("location: ".BASE_URL."index.php?page=my_profile&module=banner&action=list&notif=nlink&notif=sukses_update");
         die();                                 
         }

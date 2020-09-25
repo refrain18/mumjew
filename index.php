@@ -10,6 +10,7 @@
     $kategori_id = isset($_GET['kategori_id']) ? $_GET['kategori_id'] : false; 
 
     $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
+    $id_member = isset($_SESSION['id_member']) ? $_SESSION['id_member'] : false;
     $nama = isset($_SESSION['nama']) ? $_SESSION['nama'] : false;
     $level = isset($_SESSION['level']) ? $_SESSION['level'] : false;
     $keranjang = isset($_SESSION['keranjang']) ? $_SESSION['keranjang'] : array();

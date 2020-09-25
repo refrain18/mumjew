@@ -492,7 +492,6 @@ ul.pagination li a.active {
     font-weight: bold;
     text-align: right;
     margin-top: unset;
-    color: #08a164;
     color: #dd1212;
 }
 
@@ -554,4 +553,19 @@ a.submit-my-profile {
 /* width: 850px; */
  /* margin: auto;
  width: 50%; */
+}
+
+/* Style untuk diskon */
+.diskon {
+font-size: 15px;
+font-weight: bold;
+text-align: right;
+margin-top: unset;
+}
+.diskon span {
+color: #08a148;
+font-size: 15px;
+font-weight: bold;
+text-align: right;
+margin-top: unset;
 }

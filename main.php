@@ -58,8 +58,13 @@
                 if($kategori_id) {
                     $kategori_id = "AND barang.kategori_id='$kategori_id'";
                 }
-                
-            $query = mysqli_query($koneksi, "SELECT barang.*, kategori.kategori FROM barang JOIN kategori ON barang.kategori_id=kategori.kategori_id WHERE barang.status='on' AND barang.stok > 0 $kategori_id ORDER BY rand() DESC ");
+            
+            // Prepare Diskon Logic
+            if ($id_member) {
+                $query = mysqli_query($koneksi, "SELECT barang.*, kategori.kategori FROM barang JOIN kategori ON barang.kategori_id=kategori.kategori_id WHERE barang.status='on' AND barang.stok > 0 $kategori_id ORDER BY rand() DESC ") OR die(mysqli_error($koneksi));
+            } else {
+                $query = mysqli_query($koneksi, "SELECT barang.*, kategori.kategori FROM barang JOIN kategori ON barang.kategori_id=kategori.kategori_id WHERE barang.status='on' AND barang.stok > 0 $kategori_id ORDER BY rand() DESC ");
+            }
                 
                 $no=1;
                 while($row=mysqli_fetch_assoc($query)){
@@ -83,11 +88,33 @@
                         $show_harga_dist = "";
                     }
 
+                    if ($id_member) {
+                        $hrg_asli = $row['harga'];
+                        $disc = $row['diskon'];
+                        $hrg_disc = '';
+
+                        // Perhitungan Diskon
+                        $hrg_disc = $hrg_asli * ($disc/100);
+
+                        $show_harga_disc = "<p class='diskon'>"."<span>{$disc}%</span> ".rupiah($hrg_disc)."</p>";
+
+                        // Prepare Strike Style
+                        $stripOp = '';
+                        $stripEd = '';
+                        if ($disc != 0) {
+                            $stripOp = '<del>';
+                            $stripEd = '</del>';
+                        }
+                    } else {
+                        $show_harga_disc = '';
+                    }
+
                     echo "<li $style>
                             <div>
                             <p class='brand'>".$row['brand']."</p>
-                            <p class='price'>".rupiah($row['harga'])."</p>
+                            <p class='price'>{$stripOp}".rupiah($row['harga'])."{$stripEd}</p>
                             {$show_harga_dist}
+                            {$show_harga_disc}
                             </div>
                             <a href='".BASE_URL."$row[barang_id]/$kategori/$barang.html'>
                                 <img src='".BASE_URL."images/barang/$row[gambar]' />

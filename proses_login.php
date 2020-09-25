@@ -3,10 +3,11 @@
     include_once("function/koneksi.php");
     include_once("function/helper.php");
 
+    $id_member = isset($_POST['id_member']) ? $_POST['id_member'] : "";
     $email = $_POST['email'];
     $password = md5($_POST['password']);
 
-    $query = mysqli_query($koneksi, "SELECT * FROM user WHERE email='$email' AND password='$password' AND status='on'");
+    $query = mysqli_query($koneksi, "SELECT * FROM user WHERE email='$email' AND password='$password' AND status='on'") OR die(mysqli_error($koneksi));
 
     if(mysqli_num_rows($query) == 0){
         header("location:".BASE_URL . "index.php?page=login&notif=true");
@@ -16,10 +17,16 @@
 
         session_start();
 
+        // Get User Data
         $_SESSION['user_id'] = $row['user_id'];
         $_SESSION['nama'] = $row['nama'];
         $_SESSION['level'] = $row['level'];
-
+        
+        // Get ID Member
+        $queryMember = mysqli_query($koneksi, "SELECT * FROM id_member WHERE id_member='$id_member' AND status='on' AND user_id='$row[user_id]'") OR die(mysqli_error($koneksi));
+        $rowMember = mysqli_fetch_assoc($queryMember);
+        $_SESSION['id_member'] = $rowMember['id_member'];
+        
         if(isset($_SESSION["proses_pesanan"])){
             unset($_SESSION["proses_pesanan"]);
             header("location: ".BASE_URL."data-pemesan.html");
