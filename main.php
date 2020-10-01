@@ -100,8 +100,8 @@
 
                         // Perhitungan Diskon
                         $hrg_disc = $hrg_asli * ($disc/100);
-
-                        $show_harga_disc = "<p class='diskon'>"."<span>{$disc}%</span> ".rupiah($hrg_disc)."</p>";
+                        $total_harga_diskon = $hrg_asli - $hrg_disc;
+                        $show_harga_disc = "<p class='diskon'>"."<span>{$disc}%</span> ".rupiah($total_harga_diskon)."</p>";
 
                         if ($disc != 0) {
                             $stripOp = '<del>';

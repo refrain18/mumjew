@@ -38,7 +38,20 @@
         foreach($keranjang AS $key => $value){
             $barang_id = $key;
             $quantity = $value['quantity'];
+            $diskon = $value["diskon"];
             $harga = $value['harga'];
+
+            $harga_diskon = $harga * ($diskon/100);
+            $total_harga_diskon = $harga - $harga_diskon;
+
+            if ($id_member) {
+                $harga = $total_harga_diskon;
+            }else{
+                $harga = $value['harga'];
+            }    
+
+            // var_dump($harga);
+            // die();
 
             mysqli_query($koneksi, "INSERT INTO pesanan_detail(pesanan_id, barang_id, quantity, harga, biaya_pengiriman)
                                                     VALUES ('$last_pesanan_id', '$barang_id', '$quantity', '$harga', '$biaya_kurir')");

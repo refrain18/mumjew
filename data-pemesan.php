@@ -174,6 +174,7 @@
             </tr>
             <?php
                 $subtotal = 0;
+                $total_harga_diskon = 0;
                 foreach($keranjang AS $key => $value){
 
                     $barang_id = $key;
@@ -181,8 +182,16 @@
                     $nama_barang = $value['nama_barang'];
                     $harga = $value['harga'];
                     $quantity = $value['quantity'];
+                    $diskon = $value["diskon"];
 
-                    $total = $quantity * $harga;
+                    $harga_diskon = $harga * ($diskon/100);
+                    $total_harga_diskon = $harga - $harga_diskon;
+
+                    if ($id_member) {
+                        $total = $quantity * $total_harga_diskon;
+                    }else{
+                        $total = $quantity * $harga;
+                    }
                     $subtotal = $subtotal + $total;
 
                     echo "<tr>

@@ -67,19 +67,34 @@
 	</table>	
 </div>	
 
+	<?php
+
+		if ($id_member) {
+			$labelDiskon = "<th class='tengah'>Diskon</th>";
+			$labelHargaDiskon = "<th class='kanan'>Harga Diskon</th>";
+			$jenisHarga = "Asli";
+		}else{
+			$labelDiskon = "";
+			$labelHargaDiskon = "";
+			$jenisHarga = "Satuan";
+		}
+
+	?>
 	<table class="table-list">
 	
 		<tr class="baris-title">
 			<th class="no">No</th>
 			<th class="kiri">Nama Barang</th>
 			<th class="tengah">Qty</th>
-			<th class="kanan">Harga Satuan</th>
+			<?php $labelDiskon ?>
+			<th class="kanan">Harga <?php echo $jenisHarga ?></th>
+			<?php $labelHargaDiskon ?>
 			<th class="kanan">Total</th>
 		</tr>
 		
 		<?php
 		
-			$queryDetail = mysqli_query($koneksi, "SELECT pesanan_detail.*, barang.nama_barang FROM pesanan_detail JOIN barang ON 
+			$queryDetail = mysqli_query($koneksi, "SELECT pesanan_detail.*, barang.nama_barang, barang.diskon, barang.harga as harga_asli FROM pesanan_detail JOIN barang ON 
 			pesanan_detail.barang_id=barang.barang_id WHERE pesanan_detail.pesanan_id='$pesanan_id'")  OR die(mysqli_error($koneksi));
 			
 			// $row=mysqli_fetch_array($queryDetail);
@@ -87,15 +102,27 @@
 			$no = 1;
 			$subtotal = 0;
 			while($rowDetail=mysqli_fetch_assoc($queryDetail)){
-			
+				
+				$hargaAsli = $rowDetail["harga_asli"];
+				$diskon = $rowDetail["diskon"];
 				$total = $rowDetail["harga"] * $rowDetail["quantity"];
 				$subtotal = $subtotal + $total;
 				
+				if ($id_member) {
+					$isiDiskon = "<td class='tengah'>$diskon %</td>";
+					$isiHargaAsli = "<td class='kanan'>".rupiah($hargaAsli)."</td>";
+				}else{
+					$isiDiskon = "";
+					$isiHargaAsli = "";
+				}
+
 				echo "<tr>
 						<td class='no'>$no</td>
 						<td class='kiri'>$rowDetail[nama_barang]</td>
 						<td class='tengah'>$rowDetail[quantity]</td>
-						<td class='kiri'>".rupiah($rowDetail["harga"])."</td>
+						{$isiDiskon}
+						{$isiHargaAsli}
+						<td class='kanan'>".rupiah($rowDetail["harga"])."</td>
 						<td class='kanan'>".rupiah($total)."</td>
 					  </tr>";
 				
@@ -105,16 +132,22 @@
 			}
 			
 			$subtotal = $subtotal + $biaya_pengiriman;
-	
+			
+			if ($id_member) {
+				$colspan = 6;
+			}else{
+				$colspan = 4;
+			}
 		?>
 
+		
 		<tr>
-			<td class="kanan" colspan="4">Biaya Pengiriman</td>
+			<td class="kanan" colspan="<?php echo $colspan ?>">Biaya Pengiriman</td>
 			<td class="kanan"><?php echo rupiah($biaya_pengiriman); ?></td>
 		</tr>
 
 		<tr>
-		    <td class="kanan" colspan="4"><b>Sub Total</b></td>
+		    <td class="kanan" colspan="<?php echo $colspan ?>"><b>Sub Total</b></td>
 			<td class="kanan"><b><?php echo rupiah($subtotal); ?></b></td>
 		</tr>	
   	
