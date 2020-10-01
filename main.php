@@ -67,6 +67,11 @@
             }
                 
                 $no=1;
+
+                // Prepare Strike Style
+                $stripOp = '';
+                $stripEd = '';
+
                 while($row=mysqli_fetch_assoc($query)){
 
                     $kategori = strtolower($row["kategori"]);
@@ -98,9 +103,6 @@
 
                         $show_harga_disc = "<p class='diskon'>"."<span>{$disc}%</span> ".rupiah($hrg_disc)."</p>";
 
-                        // Prepare Strike Style
-                        $stripOp = '';
-                        $stripEd = '';
                         if ($disc != 0) {
                             $stripOp = '<del>';
                             $stripEd = '</del>';

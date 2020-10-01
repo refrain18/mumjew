@@ -5,6 +5,7 @@
     unset($_SESSION['user_id']);
     unset($_SESSION['nama']);
     unset($_SESSION['level']);
+    unset($_SESSION['id_member']);
 
     header("location: index.php");
 
