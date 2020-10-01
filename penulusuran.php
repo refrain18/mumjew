@@ -7,6 +7,7 @@
     $kategori_id = isset($_GET['kategori_id']) ? $_GET['kategori_id'] : false; 
 
     $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
+    $id_member = isset($_SESSION['id_member']) ? $_SESSION['id_member'] : false;
     $nama = isset($_SESSION['nama']) ? $_SESSION['nama'] : false;
     $level = isset($_SESSION['level']) ? $_SESSION['level'] : false;
     $keranjang = isset($_SESSION['keranjang']) ? $_SESSION['keranjang'] : array();
@@ -75,7 +76,11 @@
                 </div>
 
                 <div id="frame-barang"> 
-                     
+                    <?php
+                        // Prepare Strike Style
+                        $stripOp = '';
+                        $stripEd = ''; 
+                    ?>
                      <!-- foreach ($semuadata as $key => $value) {
                          echo 'Data = '. $value[''];
                      } -->
@@ -90,11 +95,41 @@
                                     $semuadata[]=$pecah;
                                 }
                                 ?>
-                                  
+                        
+                        <?php
+                            // Pengkondisian untuk menampilkan harga distributor
+                            if ($level == "superadmin") {
+                                $show_harga_dist = "<p class='priced'>".rupiah($pecah['harga_distributor'])."</p>";
+                            } else {
+                                $show_harga_dist = "";
+                            }
+
+                            if ($id_member) {
+                                $hrg_asli = $pecah['harga'];
+                                $disc = $pecah['diskon'];
+                                $hrg_disc = '';
+
+                                // Perhitungan Diskon
+                                $hrg_disc = $hrg_asli * ($disc/100);
+                                $total_harga_diskon = $hrg_asli - $hrg_disc;
+                                $show_harga_disc = "<p class='diskon'>"."<span>{$disc}%</span> ".rupiah($total_harga_diskon)."</p>";
+
+                                if ($disc != 0) {
+                                    $stripOp = '<del>';
+                                    $stripEd = '</del>';
+                                }
+                            } else {
+                                $show_harga_disc = '';
+                            }
+                        ?>
                             <li>
                                 <div>
                                     <p class="brand"><?php echo $pecah['brand']; ?></p>
-                                    <p class="price"><?php echo rupiah($pecah['harga']) ?></p>
+                                    <p class="price"><?php echo $stripOp.rupiah($pecah['harga']).$stripEd ?></p>
+                                    <?php
+                                    echo $show_harga_dist;
+                                    echo $show_harga_disc;
+                                    ?>
                                 </div>
                                     <a href="<?php //echo BASE_URL.''.$pecah['barang_id'].'/'.$pecah['kategori'].'/'.$pecah['nama_barang'].'html' ?>" >
                                         <img src="<?php echo BASE_URL.'images/barang/'.$pecah['gambar']; ?>" />
