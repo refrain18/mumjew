@@ -79,32 +79,31 @@ $isiLaporan .= '
     </table>
   </div>';
 
-  // $queryDetail = mysqli_query($koneksi, "SELECT pesanan_detail.*, barang.nama_barang, barang.diskon, barang.harga as harga_asli FROM pesanan_detail JOIN barang ON 
-  // pesanan_detail.barang_id=barang.barang_id WHERE pesanan_detail.pesanan_id='$pesanan_id'")  OR die(mysqli_error($koneksi));
+  $queryDetail = mysqli_query($koneksi, "SELECT pesanan_detail.*, barang.nama_barang, barang.diskon, barang.harga as harga_asli FROM pesanan_detail JOIN barang ON 
+  pesanan_detail.barang_id=barang.barang_id WHERE pesanan_detail.pesanan_id='$pesanan_id'")  OR die(mysqli_error($koneksi));
 
-  // $no = 1;
-  // $subtotal = 0;
-  // $order = '';
-  // while($rowDetail=mysqli_fetch_assoc($queryDetail)){
+  $no = 1;
+  $grandTotal = 0;
+  $order = '';
+  while($rowDetail=mysqli_fetch_assoc($queryDetail)){
     
-  //   $hargaAsli = $rowDetail["harga_asli"];
-  //   $diskon = $rowDetail["diskon"];
-  //   $total = $rowDetail["harga"] * $rowDetail["quantity"];
-  //   $subtotal = $subtotal + $total;
+    $hargaAsli = $rowDetail["harga_asli"];
+    $diskon = $rowDetail["diskon"];
+    $subTotal = $rowDetail["harga"] * $rowDetail["quantity"];
+    $grandTotal = $grandTotal + $subTotal;
 
-  //   $order .= "
-  //     <tr>
-  //       <td class='no'>$no</td>
-  //       <td class='kiri'>$rowDetail[nama_barang]</td>
-  //       <td class='tengah'>$rowDetail[quantity]</td>
-  //       {$isiDiskon}
-  //       {$isiHargaAsli}
-  //       <td class='kanan'>".rupiah($rowDetail["harga"])."</td>
-  //       <td class='kanan'>".rupiah($total)."</td>
-  //     </tr>";
+    $order .= "
+      <tr>
+        <td class='no'>$no</td>
+        <td class='kiri'>$rowDetail[nama_barang]</td>
+        <td class='kanan'>".rupiah($rowDetail["harga"])."</td>
+        <td class='tengah'>$diskon %</td>
+        <td class='tengah'>$rowDetail[quantity]</td>
+        <td class='kanan'>".rupiah($subTotal)."</td>
+      </tr>";
 
-  //   $no++;
-  // }
+    $no++;
+  }
 
   $isiLaporan .= '
     <table class="table table-sm">
@@ -119,19 +118,12 @@ $isiLaporan .= '
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-        </tr>
+        '.$order.'
       </tbody>
       <tfoot>
         <tr>
           <th colspan="5"><center>Total</center></th>
-          <th>Rp.</th>
+          <th>'.rupiah($grandTotal).'</th>
         </tr>
       </tfoot>
     </table>';
