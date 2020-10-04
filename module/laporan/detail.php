@@ -153,8 +153,8 @@
   	
 	</table>
 	
-<div id="frame-keterangan-pembayaran">
-	<p>
-		<a href="<?php echo BASE_URL."index.php?page=my_profile&module=laporan&action=cetak&pesanan_id=$pesanan_id"?>">Cetak</a>
-	</p>
-</div>	
+	<br>
+
+	<div class="kanan">
+		<a class='tombol-action' href='<?php BASE_URL ?>module/laporan/cetak.php?pesanan_id=<?php echo $pesanan_id ?>' target='_BLANK'>Cetak</a>
+	</div>
