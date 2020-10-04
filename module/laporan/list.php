@@ -60,7 +60,7 @@
 							<td class='kiri'>$arrayStatusPesanan[$status]</td>
 							<td class='kiri'>
 								<a class='tombol-action' href='".BASE_URL."index.php?page=my_profile&module=laporan&action=detail&pesanan_id=$row[pesanan_id]'>Detail Pesanan</a>
-								<a class='tombol-action' href='".BASE_URL."index.php?page=my_profile&module=laporan&action=cetak&pesanan_id=$row[pesanan_id]'>Cetak</a>
+								<a class='tombol-action' href='".BASE_URL."module/laporan/cetak.php?pesanan_id=$row[pesanan_id]' target='_BLANK'>Cetak</a>
 							</td>
 						</tr>";
 		}
