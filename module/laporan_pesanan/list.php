@@ -59,8 +59,8 @@
 							<td class='kiri'>$row[nama]</td>
 							<td class='kiri'>$arrayStatusPesanan[$status]</td>
 							<td class='kiri'>
-								<a class='tombol-action' href='".BASE_URL."index.php?page=my_profile&module=laporan&action=detail&pesanan_id=$row[pesanan_id]'>Detail Pesanan</a>
-								<a class='tombol-action' href='".BASE_URL."module/laporan/cetak.php?pesanan_id=$row[pesanan_id]' target='_BLANK'>Cetak</a>
+								<a class='tombol-action' href='".BASE_URL."index.php?page=my_profile&module=laporan_pesanan&action=detail&pesanan_id=$row[pesanan_id]'>Detail Pesanan</a>
+								<a class='tombol-action' href='".BASE_URL."module/laporan_pesanan/cetak.php?pesanan_id=$row[pesanan_id]' target='_BLANK'>Cetak</a>
 							</td>
 						</tr>";
 		}
@@ -68,7 +68,7 @@
 		echo "</table>";
 
 		$queryHitungPesanan= mysqli_query($koneksi, "SELECT * FROM pesanan JOIN user ON pesanan.user_id=user.user_id $where");
-		pagination($queryHitungPesanan, $data_per_halaman, $pagination, "index.php?page=my_profile&module=laporan&action=list$search_url");
+		pagination($queryHitungPesanan, $data_per_halaman, $pagination, "index.php?page=my_profile&module=laporan_pesanan&action=list$search_url");
 	}
 	
 ?>

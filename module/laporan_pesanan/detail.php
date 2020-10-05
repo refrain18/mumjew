@@ -156,5 +156,5 @@
 	<br>
 
 	<div class="kanan">
-		<a class='tombol-action' href='<?php BASE_URL ?>module/laporan/cetak.php?pesanan_id=<?php echo $pesanan_id ?>' target='_BLANK'>Cetak</a>
+		<a class='tombol-action' href='<?php BASE_URL ?>module/laporan_pesanan/cetak.php?pesanan_id=<?php echo $pesanan_id ?>' target='_BLANK'>Cetak</a>
 	</div>

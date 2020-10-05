@@ -38,14 +38,17 @@
             <li>
                 <a <?php if($module == "pesanan"){ echo "class='active'"; } ?> href="<?php echo BASE_URL."index.php?page=my_profile&module=pesanan&action=list";?>">Pesanan</a>
             </li>
+        <?php if($level == "superadmin"){ ?>    
+            <li>
+                <a <?php if($module == "laporan_pesanan"){ echo "class='active'"; } ?> href="<?php echo BASE_URL."index.php?page=my_profile&module=laporan_pesanan&action=list";?>">Laporan Pesanan</a>
+            </li>
+            <li>
+                <a <?php if($module == "laporan_stok"){ echo "class='active'"; } ?> href="<?php echo BASE_URL."index.php?page=my_profile&module=laporan_stok&action=list";?>">Laporan Stok</a>
+            </li>
+        <?php } ?>    
             <li>
                 <a <?php if($module == "data_diri"){ echo "class='active'"; } ?> href="<?php echo BASE_URL."index.php?page=my_profile&module=data_diri&action=form";?>">Data Diri</a>
             </li>
-        <?php if($level == "superadmin"){ ?>    
-            <li>
-                <a <?php if($module == "laporan"){ echo "class='active'"; } ?> href="<?php echo BASE_URL."index.php?page=my_profile&module=laporan&action=list";?>">Laporan</a>
-            </li>
-        <?php } ?>    
         </ul>
     </div>
 

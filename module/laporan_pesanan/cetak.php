@@ -136,6 +136,7 @@ $dompdf->loadHtml('
       <style>
         #tabel-laporan {
           font-size: 10pt;
+          margin: 20px 0px;
         }
       </style>
     </head>
