@@ -12,6 +12,7 @@
     $status = isset($_POST['status']) ? $_POST['status'] : false;
     $harga_distributor = isset($_POST['harga_distributor']) ? $_POST['harga_distributor'] : false;
     $harga = isset($_POST['harga']) ? $_POST['harga'] : false;
+    $diskon = isset($_POST['diskon']) ? $_POST['diskon'] : false;
     $brand = isset($_POST['brand']) ? $_POST['brand'] : false;
     $stok = isset($_POST['stok']) ? $_POST['stok'] : false;
 
@@ -27,8 +28,8 @@
         $update_gambar = ", gambar='$nama_file'";
     }
     if($button == "Add"){
-        mysqli_query($koneksi, "INSERT INTO barang (nama_barang, kategori_id, spesifikasi, gambar, harga, harga_distributor, brand, stok, status) 
-                                            VALUES ('$nama_barang', '$kategori_id', '$spesifikasi', '$nama_file', '$harga', '$harga_distributor', '$brand', '$stok', '$status')");
+        mysqli_query($koneksi, "INSERT INTO barang (nama_barang, kategori_id, spesifikasi, gambar, harga, harga_distributor, diskon, brand, stok, status) 
+                                            VALUES ('$nama_barang', '$kategori_id', '$spesifikasi', '$nama_file', '$harga', '$harga_distributor', '$diskon', '$brand', '$stok', '$status')");
     }
     else if($button == "Update"){
         mysqli_query($koneksi, "UPDATE barang SET kategori_id='$kategori_id',
@@ -36,6 +37,7 @@
                                                   spesifikasi='$spesifikasi',
                                                   harga='$harga',
                                                   harga_distributor='$harga_distributor',
+                                                  diskon='$diskon',
                                                   brand='$brand',
                                                   stok='$stok',
                                                   status='$status'

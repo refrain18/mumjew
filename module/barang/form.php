@@ -9,6 +9,7 @@
     $stok = "";
     $harga = "";
     $harga_distributor = "";
+    $diskon = "";
     $brand = "";
     $status = "";
     $keterangan_gambar = "";
@@ -24,11 +25,12 @@
         $gambar = $row['gambar'];
         $harga = $row['harga'];
         $harga_distributor = $row['harga_distributor'];
+        $diskon = $row['diskon'];
         $brand = $row['brand'];
         $stok = $row['stok'];
         $status = $row['status'];
         $button = "Update";
-        var_dump($harga, $harga_distributor, $stok);
+
 
         $keterangan_gambar = "(Klik pilih gambar jika ingin mengganti gambar disamping)";
         $gambar = "<img src='".BASE_URL."images/barang/$gambar' style='width: 200px; vertical-align: middle;'/>";
@@ -84,13 +86,18 @@
     </div>
 
     <div class="element-form">
+        <label>Harga Distributor</label>
+        <span><input type="text" name="harga_distributor" value="<?php echo $harga_distributor; ?>" /></span>
+    </div>
+
+    <div class="element-form">
         <label>Harga</label>
         <span><input type="text" name="harga" value="<?php echo $harga; ?>" /></span>
     </div>
 
     <div class="element-form">
-        <label>Harga Distributor</label>
-        <span><input type="text" name="harga_distributor" value="<?php echo $harga_distributor; ?>" /></span>
+        <label>Diskon</label>
+        <span><input type="number" name="diskon" value="<?php echo $diskon; ?>" /> % </span>
     </div>
 
     <div class="element-form">

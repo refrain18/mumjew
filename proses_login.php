@@ -23,7 +23,7 @@
         $_SESSION['level'] = $row['level'];
         
         // Get ID Member
-        $queryMember = mysqli_query($koneksi, "SELECT * FROM id_member WHERE id_member='$id_member' AND status='on' AND user_id='$row[user_id]'") OR die(mysqli_error($koneksi));
+        $queryMember = mysqli_query($koneksi, "SELECT * FROM member WHERE id_member='$id_member' AND status='on' AND user_id='$row[user_id]'") OR die(mysqli_error($koneksi));
         $rowMember = mysqli_fetch_assoc($queryMember);
         $_SESSION['id_member'] = $rowMember['id_member'];
         

@@ -20,6 +20,9 @@
         </form>
     </div>
     <div id="right">
+    <?php echo 
+        "<a class='tombol-action' href='".BASE_URL."module/barang/cetak.php?barang_id=' target='_BLANK'>Cetak</a>";
+    ?>    
         <a href="<?php echo BASE_URL."index.php?page=my_profile&module=barang&action=form"; ?>" class="tombol-action">+ Tambah Barang</a>
     </div>
 </div>
@@ -79,6 +82,7 @@
                 <th class='kiri'>Kategori </th>
                 <th class='kiri'>Harga</th>
                 <th class='kiri'>Harga Distributor</th>
+                <th class='kiri'>Diskon</th>
                 <th class='kiri'>Brand</th>
                 <th class='kiri'>Stok</th>
                 <th class='tengah'>Status</th>
@@ -100,6 +104,7 @@
                     <td class='kiri'>$row[kategori]</td>
                     <td class='kiri'>".rupiah($row["harga"])."</td>
                     <td class='kiri'>".rupiah($row["harga_distributor"])."</td>
+                    <td class='kiri'>$row[diskon]%</td>
                     <td class='kiri'>$row[brand]</td>
                     <td class='kiri'>$row[stok]</td>
                     <td class='tengah'>$row[status]</td>
