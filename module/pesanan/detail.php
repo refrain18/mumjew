@@ -69,7 +69,7 @@
 
 	<?php
 
-		if ($id_member) {
+		if ($id_member || $level == "superadmin") {
 			$labelDiskon = "<th class='tengah'>Diskon</th>";
 			$labelHargaDiskon = "<th class='kanan'>Harga Diskon</th>";
 			$jenisHarga = "Asli";
@@ -86,9 +86,9 @@
 			<th class="no">No</th>
 			<th class="kiri">Nama Barang</th>
 			<th class="tengah">Qty</th>
-			<?php $labelDiskon ?>
+			<?php echo $labelDiskon ?>
 			<th class="kanan">Harga <?php echo $jenisHarga ?></th>
-			<?php $labelHargaDiskon ?>
+			<?php echo $labelHargaDiskon ?>
 			<th class="kanan">Total</th>
 		</tr>
 		
@@ -108,7 +108,7 @@
 				$total = $rowDetail["harga"] * $rowDetail["quantity"];
 				$subtotal = $subtotal + $total;
 				
-				if ($id_member) {
+				if ($id_member || $level == "superadmin") {
 					$isiDiskon = "<td class='tengah'>$diskon %</td>";
 					$isiHargaAsli = "<td class='kanan'>".rupiah($hargaAsli)."</td>";
 				}else{
@@ -133,7 +133,7 @@
 			
 			$subtotal = $subtotal + $biaya_pengiriman;
 			
-			if ($id_member) {
+			if ($id_member || $level == "superadmin") {
 				$colspan = 6;
 			}else{
 				$colspan = 4;
