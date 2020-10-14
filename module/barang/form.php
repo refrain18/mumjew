@@ -28,7 +28,7 @@
         $stok = $row['stok'];
         $status = $row['status'];
         $button = "Update";
-        var_dump($harga, $harga_distributor, $stok);
+        // var_dump($harga, $harga_distributor, $stok);
 
         $keterangan_gambar = "(Klik pilih gambar jika ingin mengganti gambar disamping)";
         $gambar = "<img src='".BASE_URL."images/barang/$gambar' style='width: 200px; vertical-align: middle;'/>";
