@@ -1,10 +1,9 @@
 <?php
 
     $pesanan_id = $_GET["pesanan_id"];
-
+    // $pesanan_id = isset($_GET['pesanan_id']) ? $_GET['pesanan_id'] : "";
+        
     $queryKonfirmasiPembayaran = mysqli_query($koneksi, "SELECT p.status, k.nomor_rekening, k.nama_account, k.bukti_pembayaran, k.tanggal_transfer FROM konfirmasi_pembayaran k JOIN pesanan p ON k.pesanan_id = p.pesanan_id WHERE p.pesanan_id LIKE '$pesanan_id'") OR die(mysqli_error($koneksi));
-
-    
 
 ?>
 
