@@ -12,8 +12,8 @@
     <?php if( $data = mysqli_fetch_array($queryKonfirmasiPembayaran)) :
     
     $gambar = $data['bukti_pembayaran'];
-    $bukti_pembayaran = "<img src='".BASE_URL."images/bukti_pembayaran/$gambar' style='width: 200px; vertical-align: middle;'/>";
-    $keterangan_gambar = "(Klik pilih gambar jika ingin mengganti gambar disamping)";
+    $bukti_pembayaran = "<a target='_blank' href='".BASE_URL."images/bukti_pembayaran/$gambar'> <img src='".BASE_URL."images/bukti_pembayaran/$gambar' alt='bukti pembayaran' style='width: 200px; vertical-align: middle;'/>";
+    $keterangan_gambar = "(Klik gambar jika ingin memperbesar)";
 
     ?>
 
@@ -31,7 +31,7 @@
 
             <div class="element-form">
                 <label>Bukti Pembayaran <?php echo $keterangan_gambar; ?></label>
-                <span><input type="file" name="file" disabled/> <?php echo $bukti_pembayaran ?> </span>
+                <span><input type="file" name="file" disabled/> <?php echo $bukti_pembayaran ?></span>
             </div>
 
             <div class="element-form">
