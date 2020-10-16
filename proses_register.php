@@ -23,7 +23,9 @@
     }elseif($password != $re_password){
         header("location: ".BASE_URL."index.php?page=register&notif=password&$dataForm");
     }elseif(mysqli_num_rows($query) == 1){
-        header("location: ".BASE_URL."index.php?page=register&notif=email&$dataForm");    
+        header("location: ".BASE_URL."index.php?page=register&notif=email&$dataForm");
+    }elseif(!preg_match("/^[a-zA-Z]*$/",$nama_lengkap)){
+        header("location: ".BASE_URL."index.php?page=register&notif=nama_lengkap&$dataForm");         
     }else{ 
        $password = md5($password);
        mysqli_query($koneksi, "INSERT INTO user (level, nama, email, alamat, phone, password, status)

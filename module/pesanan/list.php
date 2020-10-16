@@ -2,11 +2,13 @@
        $search = isset($_GET["search"]) ? $_GET["search"] : false;
     
         $where = "";
-        $search_url = "";
+		$search_url = "";
+		
         if($search){
             $search_url = "&search=$search";
-            $where = "WHERE pesanan.status LIKE '%$search%' || user.nama LIKE '%$search%'";                
-        } 
+			$where = "WHERE pesanan.status LIKE '%$search%' || user.nama LIKE '%$search%'";               
+		}
+
 ?>
 <?php if($level == "superadmin"){ ?>
 <div id="frame-tambah">
@@ -77,7 +79,7 @@
 		echo "</table>";
 
 		$queryHitungPesanan= mysqli_query($koneksi, "SELECT * FROM pesanan JOIN user ON pesanan.user_id=user.user_id $where");
-        pagination($queryHitungPesanan, $data_per_halaman, $pagination, "index.php?page=my_profile&module=pesanan&action=list");
+        pagination($queryHitungPesanan, $data_per_halaman, $pagination, "index.php?page=my_profile&module=pesanan&action=list$search_url");
 	}
 	
 ?>
