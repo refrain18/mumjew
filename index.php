@@ -1,5 +1,5 @@
 <?php
-    ob_start();
+    ob_start(); //menagatasi double header
     session_start();
 
     include_once("function/koneksi.php");
@@ -8,6 +8,7 @@
 
     $page = isset($_GET['page']) ? $_GET['page'] : false; 
     $kategori_id = isset($_GET['kategori_id']) ? $_GET['kategori_id'] : false; 
+    $bb_id = isset($_GET['bb_id']) ? $_GET['bb_id'] : false; 
 
     $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
     $id_member = isset($_SESSION['id_member']) ? $_SESSION['id_member'] : false;
@@ -18,7 +19,7 @@
 
     // Menarik data API
     $list_provinsi = curl_get('https://api.rajaongkir.com/starter/province');
-    ob_flush();
+    ob_flush(); //menagatasi double header
 ?>
 <!DOCTYPE html>
 <html>

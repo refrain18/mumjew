@@ -24,6 +24,12 @@
     </div>
 </div>
 
+    <?php
+		if (isset($_GET['notif'])) {
+			echo notifTransaksi($_GET['notif'] ,"Banner Branded");
+		}
+	?>
+
 <?php
 
 

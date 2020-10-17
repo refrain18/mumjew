@@ -68,7 +68,7 @@
     $data_per_halaman = 5;
     $mulai_dari = ($pagination-1) * $data_per_halaman;
 
-    $query = mysqli_query($koneksi, "SELECT barang.*, kategori.kategori FROM barang JOIN kategori ON barang.kategori_id=kategori.kategori_id $where LIMIT $mulai_dari, $data_per_halaman");
+    $query = mysqli_query($koneksi, "SELECT barang.*, kategori.kategori, banner_branded.banner_branded FROM barang JOIN kategori ON barang.kategori_id=kategori.kategori_id JOIN banner_branded ON barang.bb_id=banner_branded.bb_id $where LIMIT $mulai_dari, $data_per_halaman");
 
     if(mysqli_num_rows($query) == 0){
         echo "<h3>saat ini belum ada barang di dalam tabel barang";
@@ -105,7 +105,7 @@
                     <td class='kiri'>".rupiah($row["harga"])."</td>
                     <td class='kiri'>".rupiah($row["harga_distributor"])."</td>
                     <td class='kiri'>$row[diskon]%</td>
-                    <td class='kiri'>$row[brand]</td>
+                    <td class='kiri'>$row[banner_branded]</td>
                     <td class='kiri'>$row[stok]</td>
                     <td class='tengah'>$row[status]</td>
                     <td class='tengah'>
@@ -119,7 +119,7 @@
         }      
         echo "</table>";
 
-        $queryHitungBarang = mysqli_query($koneksi, "SELECT * FROM barang JOIN kategori ON barang.kategori_id=kategori.kategori_id $where");
+        $queryHitungBarang = mysqli_query($koneksi, "SELECT * FROM barang JOIN kategori ON barang.kategori_id=kategori.kategori_id JOIN banner_branded ON barang.bb_id=banner_branded.bb_id $where");
         pagination($queryHitungBarang, $data_per_halaman, $pagination, "index.php?page=my_profile&module=barang&action=list$search_url");
     }
 

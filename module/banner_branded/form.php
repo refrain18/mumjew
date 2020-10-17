@@ -25,6 +25,14 @@
 
 <form action="<?php echo BASE_URL."module/banner_branded/action.php?bb_id=$bb_id"?>" method="post" enctype="multipart/form-data">
 	
+	<?php
+
+	if ( isset($_GET['notif']) ) {
+		echo notifTransaksi($_GET['notif'],"banner branded");
+	}
+
+	?>
+
 	<div class="element-form">
 		<label>Banner Branded</label>	
 		<span><input type="text" name="banner_branded" value="<?php echo $banner_branded; ?>" /></span>

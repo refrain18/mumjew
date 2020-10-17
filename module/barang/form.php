@@ -10,7 +10,7 @@
     $harga = "";
     $harga_distributor = "";
     $diskon = "";
-    $brand = "";
+    $bb_id = "";
     $status = "";
     $keterangan_gambar = "";
     $button = "Add";
@@ -26,7 +26,7 @@
         $harga = $row['harga'];
         $harga_distributor = $row['harga_distributor'];
         $diskon = $row['diskon'];
-        $brand = $row['brand'];
+        $bb_id = $row['bb_id'];
         $stok = $row['stok'];
         $status = $row['status'];
         $button = "Update";
@@ -35,6 +35,7 @@
         $keterangan_gambar = "(Klik pilih gambar jika ingin mengganti gambar disamping)";
         $gambar = "<img src='".BASE_URL."images/barang/$gambar' style='width: 200px; vertical-align: middle;'/>";
     }
+    // var_dump($bb_id,$gambar); die;
 
 ?>
 
@@ -102,7 +103,22 @@
 
     <div class="element-form">
         <label>Brand</label>
-        <span><input type="text" name="brand" value="<?php echo $brand; ?>" /></span>
+        <span>
+        
+            <select name="bb_id">
+                <?php
+                    $query = mysqli_query($koneksi, "SELECT bb_id, banner_branded FROM banner_branded WHERE status='on' ORDER BY banner_branded ASC");
+                    while($row=mysqli_fetch_assoc($query)){
+                        if($bb_id == $row['bb_id']) {
+                            echo "<option value='$row[bb_id]' selected='true'>$row[banner_branded]</option>";
+                        }else{
+                            echo "<option value='$row[bb_id]'>$row[banner_branded]</option>";
+                        }
+                    }
+                ?>
+            </select>
+        
+        </span>
     </div>
 
     <div class="element-form">
