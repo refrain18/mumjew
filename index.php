@@ -1,5 +1,5 @@
 <?php
-
+    ob_start();
     session_start();
 
     include_once("function/koneksi.php");
@@ -18,7 +18,7 @@
 
     // Menarik data API
     $list_provinsi = curl_get('https://api.rajaongkir.com/starter/province');
-
+    ob_flush();
 ?>
 <!DOCTYPE html>
 <html>
