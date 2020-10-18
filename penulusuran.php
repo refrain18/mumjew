@@ -61,7 +61,8 @@
             <?php
                  $keyword = $_GET["keyword"];
                  $semuadata=array();
-                 $ambil = $koneksi->query("SELECT * FROM barang WHERE barang.status='on' AND barang.stok > 0 AND nama_barang LIKE '%$keyword%' OR brand LIKE '%$keyword%'");
+                 $ambil = $koneksi->query("SELECT barang.*, kategori.kategori, banner_branded.banner_branded FROM barang JOIN kategori ON barang.kategori_id=kategori.kategori_id JOIN banner_branded ON barang.bb_id=banner_branded.bb_id WHERE barang.status='on' AND barang.stok > 0 AND 
+                                           nama_barang LIKE '%$keyword%' OR banner_branded LIKE '%$keyword%' OR kategori LIKE '%$keyword%'");
                 
             ?>
             <div id="kanan" style="width: auto;">
@@ -124,7 +125,7 @@
                         ?>
                             <li>
                                 <div>
-                                    <p class="brand"><?php echo $pecah['brand']; ?></p>
+                                    <p class="brand"><?php echo $pecah['banner_branded']; ?></p>
                                     <p class="price"><?php echo $stripOp.rupiah($pecah['harga']).$stripEd ?></p>
                                     <?php
                                     echo $show_harga_dist;
