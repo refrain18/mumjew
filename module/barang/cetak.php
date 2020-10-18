@@ -12,9 +12,9 @@ $dompdf = new Dompdf();
 
 // Get Laporan Data
 $barang_id = isset($_GET["barang_id"]) ? $_GET["barang_id"] : '';
-$brand = isset($_GET["brand"]) ? $_GET["brand"] : 'Semua';
+$brand = isset($_GET["banner_branded"]) ? $_GET["banner_branded"] : 'Semua';
 
-$query = mysqli_query($koneksi, "SELECT count(barang.barang_id) as jumlah FROM barang") OR die(mysqli_error($koneksi));
+$query = mysqli_query($koneksi, "SELECT count(barang.barang_id) as jumlah, banner_branded.banner_branded FROM barang JOIN banner_branded ON barang.bb_id=banner_branded.bb_id") OR die(mysqli_error($koneksi));
 $data = mysqli_fetch_assoc($query);
 $jml_data = $data['jumlah'];
 
@@ -43,7 +43,7 @@ $isiLaporan .= '
   </div>';
 
 
-  $query = mysqli_query($koneksi, "SELECT barang_id, nama_barang, harga, harga_distributor, brand, stok FROM barang") OR die(mysqli_error($koneksi));
+  $query = mysqli_query($koneksi, "SELECT barang_id, nama_barang, harga, harga_distributor, banner_branded.banner_branded, stok FROM barang JOIN banner_branded ON barang.bb_id=banner_branded.bb_id") OR die(mysqli_error($koneksi));
   
 
   $no = 1;
@@ -54,7 +54,7 @@ $isiLaporan .= '
     $nama_barang = $row['nama_barang'];
     $harga = $row['harga'];
     $harga_distributor = $row['harga_distributor'];
-    $brand = $row['brand'];
+    $brand = $row['banner_branded'];
     $stok = $row['stok'];
 
     $order .= "
