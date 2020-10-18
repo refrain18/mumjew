@@ -159,13 +159,17 @@
 			Silahkan konfirmasi pesanan jika customer sudah menyelesaikan pembayaran.
 			<a href="<?php echo BASE_URL."index.php?page=my_profile&module=pesanan&action=status&pesanan_id=$pesanan_id"?>">Konfirmasi</a>.
 		</p>
-	<?php elseif($mtd_pembayaran == "Transfer") :?>
+	<?php elseif($mtd_pembayaran == "Transfer" && $level == 'customer') :?>
 		<p>
 			Silahkan lakukan pembayaran ke Bank ABC<br/>
 			Nomor Account : 0000-9999-8888 (D/W Mumtaza).<br/>
 			Setelah melakukan pembayaran silahkan lakukan konfirmasi pembayaran
 			<a href="<?php echo BASE_URL."index.php?page=my_profile&module=pesanan&action=konfirmasi_pembayaran&pesanan_id=$pesanan_id"?>">Disini</a>.
 		</p>
+	<?php elseif($mtd_pembayaran == "Transfer" && $level == 'superadmin') : ?>
+		<p>
+			<a href="<?php echo BASE_URL."index.php?page=my_profile&module=pesanan&action=konfirmasi_pembayaran&pesanan_id=$pesanan_id"?>">Cek Konfirmasi Pembayaran</a>.
+		</p>	
 	<?php else : ?>
 		<p>
 			Silahkan lunasi tagihan anda pada kurir Mumtaza.

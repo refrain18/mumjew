@@ -26,8 +26,8 @@
 <head>
     <title>Mumtaza Jewerly | Toko Emas</title>
 
-        <link href="<?php echo BASE_URL."css/fontawesome-free-5.13.1-web/css/all.min.css"; ?>" type="text/css" rel="stylesheet" />
-        <link href="<?php echo BASE_URL."css/style.css"; ?>" type="text/css" rel="stylesheet" />
+    <link href="<?php echo BASE_URL."css/fontawesome-free-5.13.1-web/css/all.min.css"; ?>" type="text/css" rel="stylesheet" />
+    <link href="<?php echo BASE_URL."css/style.css"; ?>" type="text/css" rel="stylesheet" />
 		<link href="<?php echo BASE_URL."css/banner.css"; ?>" type="text/css" rel="stylesheet" />
 		<link href="<?php echo BASE_URL."libs/lightslider-master/dist/css/lightslider.css"; ?>" type="text/css" rel="stylesheet" />
     
@@ -108,7 +108,7 @@
         </div>
         
         <div id="footer">
-            <p>copyright Mumtaza Jewerly 2020</p>
+            <p>Mumtaza Jewerly by Abka Zailani</p>
         </div>
 
     </div>

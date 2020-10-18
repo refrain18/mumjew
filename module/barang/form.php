@@ -31,7 +31,6 @@
         $status = $row['status'];
         $button = "Update";
 
-
         $keterangan_gambar = "(Klik pilih gambar jika ingin mengganti gambar disamping)";
         $gambar = "<img src='".BASE_URL."images/barang/$gambar' style='width: 200px; vertical-align: middle;'/>";
     }

@@ -8,14 +8,21 @@
 	$button = isset($_POST['button']) ? $_POST['button'] : $_GET['button'];
 	$pesanan_id = isset($_GET['pesanan_id']) ? $_GET['pesanan_id'] : "";
 	
+
 	if($button == "Konfirmasi"){
 		
 		$user_id = $_SESSION["user_id"];
 
 		$nomor_rekening = isset($_POST['nomor_rekening']) ? $_POST['nomor_rekening'] : false;
 		$nama_account = isset($_POST['nama_account']) ? $_POST['nama_account'] : false;
-		$bukti_pembayaran = isset($_POST['bukti_pembayaran']) ? $_POST['bukti_pembayaran'] : false;
 		$tanggal_transfer = isset($_POST['tanggal_transfer']) ? $_POST['tanggal_transfer'] : false;
+
+		if($_FILES["file"]["name"] != "")
+		{
+			$bukti_pembayaran = $_FILES["file"]["name"];
+			move_uploaded_file($_FILES["file"]["tmp_name"], "../../images/bukti_pembayaran/" . $bukti_pembayaran);
+			 
+		}
 
 		$queryPembayaran = mysqli_query($koneksi, "INSERT INTO 
 													konfirmasi_pembayaran (pesanan_id, nomor_rekening, nama_account, bukti_pembayaran, tanggal_transfer)
