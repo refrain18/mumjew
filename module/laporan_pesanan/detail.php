@@ -69,7 +69,7 @@
 
 	<?php
 
-		if ($id_member) {
+		if ($id_member || $level == "superadmin") {
 			$labelDiskon = "<th class='tengah'>Diskon</th>";
 			$labelHargaDiskon = "<th class='kanan'>Harga Diskon</th>";
 			$jenisHarga = "Asli";
@@ -86,10 +86,10 @@
 			<th class="no">No</th>
 			<th class="kiri">Nama Barang</th>
 			<th class="tengah">Qty</th>
-			<?php $labelDiskon ?>
+			<?php echo $labelDiskon ?>
 			<th class="kanan">Harga <?php echo $jenisHarga ?></th>
-			<?php $labelHargaDiskon ?>
-			<th class="kanan">Total</th>
+			<?php echo $labelHargaDiskon ?>
+			<th class="kanan">Sub Total</th>
 		</tr>
 		
 		<?php
@@ -108,12 +108,20 @@
 				$total = $rowDetail["harga"] * $rowDetail["quantity"];
 				$subtotal = $subtotal + $total;
 				
-				if ($id_member) {
+				if ($rowDetail["harga"] != $rowDetail["harga_asli"]) {
+					$diskon = $rowDetail["diskon"];
+				}else {
+					$diskon = 0;
+				}
+
+				if ($id_member || $level == "superadmin") {
 					$isiDiskon = "<td class='tengah'>$diskon %</td>";
 					$isiHargaAsli = "<td class='kanan'>".rupiah($hargaAsli)."</td>";
+					$colspan = 6;
 				}else{
 					$isiDiskon = "";
 					$isiHargaAsli = "";
+					$colspan = 4;
 				}
 
 				echo "<tr>
@@ -133,11 +141,6 @@
 			
 			$subtotal = $subtotal + $biaya_pengiriman;
 			
-			if ($id_member) {
-				$colspan = 6;
-			}else{
-				$colspan = 4;
-			}
 		?>
 
 		
@@ -147,7 +150,7 @@
 		</tr>
 
 		<tr>
-		    <td class="kanan" colspan="<?php echo $colspan ?>"><b>Sub Total</b></td>
+		    <td class="kanan" colspan="<?php echo $colspan ?>"><b>Total</b></td>
 			<td class="kanan"><b><?php echo rupiah($subtotal); ?></b></td>
 		</tr>	
   	

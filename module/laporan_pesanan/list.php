@@ -8,7 +8,7 @@
 			$where = "WHERE pesanan.pesanan_id LIKE '%$search%' || user.nama LIKE '%$search%'";                
 	} 
 ?>
-<?php if($level == "superadmin"){ ?>
+<?php if($level == "superadmin"){ ?>	
 <div id="frame-tambah">
 	<div id="left">
 		<form action="<?php echo BASE_URL."index.php"; ?>" method="GET">
@@ -19,8 +19,14 @@
 			<input type="submit" value="Search" />
 		</form>
 	</div>
-	<br>
+	<div id="right">
+    <?php echo 
+        "<a class='tombol-action' href='".BASE_URL."module/laporan_pesanan/cetak_filter.php?pesanan_id=' target='_BLANK'>Cetak</a>";
+    ?>    
+	</div>	
+	<br>	
 </div>
+
 <?php } ?>
 <?php
 
@@ -59,7 +65,7 @@
 							<td class='kiri'>$row[nama]</td>
 							<td class='kiri'>$arrayStatusPesanan[$status]</td>
 							<td class='kiri'>
-								<a class='tombol-action' href='".BASE_URL."index.php?page=my_profile&module=laporan_pesanan&action=detail&pesanan_id=$row[pesanan_id]'>Detail Pesanan</a>
+								<a class='tombol-action' href='".BASE_URL."index.php?page=laporan&module=laporan_pesanan&action=detail&pesanan_id=$row[pesanan_id]'>Detail Pesanan</a>
 								<a class='tombol-action' href='".BASE_URL."module/laporan_pesanan/cetak.php?pesanan_id=$row[pesanan_id]' target='_BLANK'>Cetak</a>
 							</td>
 						</tr>";

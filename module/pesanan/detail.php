@@ -89,7 +89,7 @@
 			<?php echo $labelDiskon ?>
 			<th class="kanan">Harga <?php echo $jenisHarga ?></th>
 			<?php echo $labelHargaDiskon ?>
-			<th class="kanan">Total</th>
+			<th class="kanan">Sub Total</th>
 		</tr>
 		
 		<?php
@@ -108,6 +108,12 @@
 				$total = $rowDetail["harga"] * $rowDetail["quantity"];
 				$subtotal = $subtotal + $total;
 				
+				if ($rowDetail["harga"] != $rowDetail["harga_asli"]) {
+					$diskon = $rowDetail["diskon"];
+				}else {
+					$diskon = 0;
+				}
+
 				if ($id_member || $level == "superadmin") {
 					$isiDiskon = "<td class='tengah'>$diskon %</td>";
 					$isiHargaAsli = "<td class='kanan'>".rupiah($hargaAsli)."</td>";
@@ -115,6 +121,8 @@
 					$isiDiskon = "";
 					$isiHargaAsli = "";
 				}
+
+				
 
 				echo "<tr>
 						<td class='no'>$no</td>
@@ -147,7 +155,7 @@
 		</tr>
 
 		<tr>
-		    <td class="kanan" colspan="<?php echo $colspan ?>"><b>Sub Total</b></td>
+		    <td class="kanan" colspan="<?php echo $colspan ?>"><b>Total</b></td>
 			<td class="kanan"><b><?php echo rupiah($subtotal); ?></b></td>
 		</tr>	
   	

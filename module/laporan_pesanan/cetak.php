@@ -92,18 +92,33 @@ $isiLaporan .= '
     $subTotal = $rowDetail["harga"] * $rowDetail["quantity"];
     $grandTotal = $grandTotal + $subTotal;
 
+    if ($rowDetail["harga"] != $rowDetail["harga_asli"]) {
+      $labelHargaDiskon = "<th scope='col'>Harga Diskon</th>";
+      $isiHargaDiskon = "<td class='kanan'>".rupiah($rowDetail["harga"])."</td>";
+      $diskon = $rowDetail["diskon"];
+      $col = 5;
+    }else{
+      $labelHargaDiskon = "";
+      $isiHargaDiskon = "";
+      $diskon = 0;
+      $col = 4;
+    }
+
     $order .= "
       <tr>
         <td class='no'>$no</td>
         <td class='kiri'>$rowDetail[nama_barang]</td>
-        <td class='kanan'>".rupiah($rowDetail["harga"])."</td>
+        <td class='kanan'>".rupiah($rowDetail["harga_asli"])."</td>
         <td class='tengah'>$diskon %</td>
+        {$isiHargaDiskon}
         <td class='tengah'>$rowDetail[quantity]</td>
         <td class='kanan'>".rupiah($subTotal)."</td>
       </tr>";
-
+    $biaya_pengiriman = $rowDetail["biaya_pengiriman"];
     $no++;
   }
+
+  $grandTotal = $grandTotal + $biaya_pengiriman;
 
   $isiLaporan .= '
     <table class="table table-sm">
@@ -113,6 +128,7 @@ $isiLaporan .= '
           <th scope="col">Nama Barang</th>
           <th scope="col">Harga</th>
           <th scope="col">Diskon</th>
+          '.$labelHargaDiskon.'
           <th scope="col">Qty</th>
           <th scope="col">Sub Total</th>
         </tr>
@@ -122,7 +138,13 @@ $isiLaporan .= '
       </tbody>
       <tfoot>
         <tr>
-          <th colspan="5"><center>Total</center></th>
+          <th colspan='.$col.'></th>
+          <th>Biaya Pengiriman</th>
+          <td>'.rupiah($biaya_pengiriman).'</td>
+        </tr>
+        <tr>
+          <th colspan='.$col.'></th>
+          <th>Total</th>
           <th>'.rupiah($grandTotal).'</th>
         </tr>
       </tfoot>
