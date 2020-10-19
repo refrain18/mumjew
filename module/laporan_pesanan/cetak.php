@@ -18,7 +18,7 @@ $style = '
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">';
 
 // Header laporan default
-$isiLaporan = '<center><h1>Laporan Pemesanan</h1></center><br><hr></br>';
+$isiLaporan = '<center><h1>Laporan Detail Pemesanan</h1></center><br><hr></br>';
 
 // Blok pengolahan konten laporan
 $query = mysqli_query($koneksi, "SELECT pesanan.metode_pengiriman, pesanan.metode_pembayaran, pesanan.nama_penerima, pesanan.nomor_telepon, pesanan.alamat, pesanan.tanggal_pemesanan, user.nama FROM pesanan JOIN user ON pesanan.user_id=user.user_id WHERE pesanan.pesanan_id='$pesanan_id'") OR die(mysqli_error($koneksi));
@@ -173,6 +173,6 @@ $dompdf->setPaper('A4', 'landscape');
 // Render the HTML as PDF
 $dompdf->render();
 // Output the generated PDF to Browser
-$dompdf->stream('laporan_pemesanan.pdf', ['Attachment' => 0]);
+$dompdf->stream('laporan_detail_pemesanan.pdf', ['Attachment' => 0]);
 
 ?>

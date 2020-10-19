@@ -90,7 +90,7 @@ $isiLaporan .= '
 $dompdf->loadHtml('
   <html>
     <head>
-      <title>Cetak Laporan</title>
+      <title>Cetak Laporan Stok</title>
       '.$style.'
       <style>
         #tabel-laporan {

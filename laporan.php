@@ -17,7 +17,7 @@
         <ul>
         <?php if($level == "superadmin"){ ?>    
             <li>
-                <a <?php if($module == "laporan_pesanan"){ echo "class='active'"; } ?> href="<?php echo BASE_URL."index.php?page=laporan&module=laporan_pesanan&action=list";?>">Laporan Pesanan</a>
+                <a <?php if($module == "laporan_pesanan"){ echo "class='active'"; } ?> href="<?php echo BASE_URL."index.php?page=laporan&module=laporan_pesanan&action=list";?>">Laporan Pemesanan</a>
             </li>
         <?php } ?>    
         </ul>

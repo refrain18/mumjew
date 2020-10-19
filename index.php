@@ -260,7 +260,7 @@
 
             // Response
             if (res.data != '') {
-              if (metode_pembayaran == 'cod') {
+              if (metode_pembayaran == 'COD') {
                 if (parent_kurir.querySelectorAll('.kurir_tambahan')) {
                   var opt_grp = parent_kurir.querySelectorAll(".kurir_tambahan");
                   opt_grp.forEach(function(el) {
@@ -271,12 +271,12 @@
               // Info Kurir Mumtaza
               alert(res.message);
             } else {
-              if (metode_pembayaran == 'tf') {
+              if (metode_pembayaran == 'Transfer') {
                 if (parent_kurir.querySelector('#kurir_mumtaza')) {
                   var kurir_opt = document.querySelector("#kurir_mumtaza");
                   kurir_opt.parentNode.removeChild(kurir_opt);
                 }
-              } else if (metode_pembayaran == 'cod') {
+              } else if (metode_pembayaran == 'COD') {
                 // Membersihkan Opsi Metode Pengiriman
                 if (parent_kurir.querySelector('#kurir_mumtaza')) {
                   // Hapus Semua Opsi Metode Pengiriman
@@ -389,10 +389,10 @@
             }
 
             // Cek Metode Pembayaran
-            if (metode_pembayaran == 'tf') {
+            if (metode_pembayaran == 'Transfer') {
               // Cek Jangkauan Kurir Mumtaza
               cek_jangkauan_kurir_toko(kota_tujuan, metode_pembayaran);
-            } else if (metode_pembayaran == 'cod') {
+            } else if (metode_pembayaran == 'COD') {
               // Cek Jangkauan Kurir Mumtaza
               cek_jangkauan_kurir_toko(kota_tujuan, metode_pembayaran);
             }
