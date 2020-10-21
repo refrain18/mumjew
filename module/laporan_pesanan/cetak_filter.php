@@ -12,8 +12,18 @@ $dompdf = new Dompdf();
 
 // Get Laporan Data
 $pesanan_id = isset($_GET["pesanan_id"]) ? $_GET["pesanan_id"] : '';
-$tgl = isset($_GET["tanggal_pemesanan"]) ? $_GET["tanggal_pemesanan"] : 'Semua';
-$status = isset($_GET["status"]) ? $_GET["status"] : 'Semua';
+
+$tgl_a = $_POST['tgl_a'];
+$tgl_b = $_POST['tgl_b'];
+
+$where="";
+if ($tgl_a && $tgl_b) {
+    $where = "WHERE tanggal_pemesanan BETWEEN '$tgl_a' AND '$tgl_b'";
+    $tgl = date('d F y',strtotime($tgl_a)) . '&nbsp;s/d&nbsp;' . date('d F y',strtotime($tgl_b));
+}else {
+    $tgl ="Semua"; 
+}
+
 
 $query = mysqli_query($koneksi, "SELECT count(pesanan.pesanan_id) as jumlah, pesanan_detail.*, 
                                                                                     pesanan.tanggal_pemesanan,
@@ -22,7 +32,7 @@ $query = mysqli_query($koneksi, "SELECT count(pesanan.pesanan_id) as jumlah, pes
                                                                                     pesanan.metode_pembayaran,
                                                                                     pesanan.status,
                                                                                     barang.nama_barang  
-                                FROM pesanan_detail JOIN pesanan ON pesanan_detail.pesanan_id=pesanan.pesanan_id JOIN barang ON pesanan_detail.barang_id=barang.barang_id") OR die(mysqli_error($koneksi));
+                                FROM pesanan_detail JOIN pesanan ON pesanan_detail.pesanan_id=pesanan.pesanan_id JOIN barang ON pesanan_detail.barang_id=barang.barang_id $where") OR die(mysqli_error($koneksi));
 $data = mysqli_fetch_assoc($query);
 $jml_data = $data['jumlah'];
 
@@ -41,12 +51,7 @@ $isiLaporan .= '
         <th>Tanggal Pemesanan</th>
         <td> : </td>
         <td>'.$tgl.'</td>
-      </tr>
-      <tr>
-      <th>Status</th>
-      <td> : </td>
-      <td>'.$status.'</td>
-    </tr>		
+      </tr>	
       <tr>
         <th>Jumlah Data</th>
         <td> : </td>
@@ -66,7 +71,7 @@ $isiLaporan .= '
                                                  barang.nama_barang,
                                                  barang.harga as harga_satuan,
                                                  barang.diskon 
-                                          FROM pesanan_detail JOIN pesanan ON pesanan_detail.pesanan_id=pesanan.pesanan_id JOIN barang ON pesanan_detail.barang_id=barang.barang_id") OR die(mysqli_error($koneksi)); 
+                                          FROM pesanan_detail JOIN pesanan ON pesanan_detail.pesanan_id=pesanan.pesanan_id JOIN barang ON pesanan_detail.barang_id=barang.barang_id $where") OR die(mysqli_error($koneksi)); 
 
   $no = 1;
   $order = '';

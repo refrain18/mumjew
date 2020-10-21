@@ -20,13 +20,32 @@
 		</form>
 	</div>
 	<div id="right">
-    <?php echo 
-        "<a class='tombol-action' href='".BASE_URL."module/laporan_pesanan/cetak_filter.php?pesanan_id=' target='_BLANK'>Cetak</a>";
-    ?>    
+	<a class="tombol-action" href="#popup">Cetak</a>
 	</div>	
 	<br>	
 </div>
 
+<div id="popup">
+    <div class="window">
+        <a href="#" class="close-button" title="Close">X</a>
+        <h4><center> Cetak PDF Laporan Pemesanan</center></h4>
+
+        <form action="<?php echo "module/laporan_pesanan/cetak_filter.php"; ?>" target='_BLANK' method="POST">
+        <div class="element-form">      
+			<label>Tanggal Pesanan</label>
+			<br>
+			<label>Mulai dari</label>
+			<input type="date" name="tgl_a"/> 
+			<br>
+			<label>Sampai</label> 
+			<input type="date" name="tgl_b"/>
+        </div>
+        <div class="element-form">
+            <span ><button class='tombol-action'>Cetak</button></span>
+		</div>
+		</form>
+	</div>
+</div>
 <?php } ?>
 <?php
 
