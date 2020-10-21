@@ -278,10 +278,6 @@ body{
 #kanan #frame-barang ul li .brand {
     font-size: 15px;
     font-weight: bold;
-    text-align: left;
-    margin-bottom: unset;
-    padding-right: 50px;
-    display: inline-block;
 }
 
 #kanan #frame-barang ul li a img {
@@ -490,7 +486,7 @@ ul.pagination li a.active {
 #kanan #frame-barang ul li .priced {
     font-size: 15px;
     font-weight: bold;
-    text-align: right;
+    text-align: left;
     margin-top: unset;
     color: #dd1212;
 }
@@ -559,14 +555,14 @@ a.submit-my-profile {
 .diskon {
 font-size: 15px;
 font-weight: bold;
-text-align: right;
+text-align: left;
 margin-top: unset;
 }
 .diskon span {
 color: #08a148;
 font-size: 15px;
 font-weight: bold;
-text-align: right;
+text-align: left;
 margin-top: unset;
 }
 

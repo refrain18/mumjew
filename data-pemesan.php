@@ -125,11 +125,11 @@
             <div class="element-form">
                 <label>Metode Pembayaran : </label>
                 <span>
-                    <input type="radio" id="cod" name="metode_pembayaran" value="COD" onclick="cek_ongkir(this.value)" <?php echo $dis ?> required>
+                    <input type="radio" id="COD" name="metode_pembayaran" value="COD" onclick="cek_ongkir(this.value)" <?php echo $dis ?> required>
                     <span style="display: inline-block;">
                         <label for="COD">COD</label>
                     </span>
-                    <input type="radio" id="tf" name="metode_pembayaran" value="Transfer" onclick="cek_ongkir(this.value)" <?php echo $dis ?> required>
+                    <input type="radio" id="Transfer" name="metode_pembayaran" value="Transfer" onclick="cek_ongkir(this.value)" <?php echo $dis ?> required>
                     <span style="display: inline-block;">
                         <label for="Transfer">Transfer Bank</label>
                     </span>

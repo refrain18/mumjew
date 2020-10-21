@@ -12,7 +12,7 @@
 	$alamat = $row['alamat'];
 	$nama = $row['nama'];
 	$mtd_pengiriman = $row['metode_pengiriman'];
-	$mtd_pembayaran = $row['metode_pembayaran'] == 'tf' ? 'Transfer': 'COD';
+	$mtd_pembayaran = $row['metode_pembayaran'] == 'Transfer' ? 'Transfer': 'COD';
 	
 ?>
 

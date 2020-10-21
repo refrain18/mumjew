@@ -126,7 +126,6 @@
 
                     echo "<li $style>
                             <div>
-                            <p class='brand'>".$row['banner_branded']."</p>
                             <p class='price'>{$stripOp}".rupiah($row['harga'])."{$stripEd}</p>
                             {$show_harga_dist}
                             {$show_harga_disc}
@@ -137,6 +136,7 @@
                             <div class='keterangan-gambar'> 
                                 <p><a href='".BASE_URL."$row[barang_id]/$kategori/$barang.html'>$row[nama_barang]</a></p>
                                 <span>Stok : $row[stok]</span>
+                                <p class='brand'>".$row['banner_branded']."</p>
                             </div>
                             <div class='button-add-cart'>
                                 <a href='".BASE_URL."tambah_keranjang.php?barang_id=$row[barang_id]'>+ add to cart</a>
