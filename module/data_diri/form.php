@@ -43,6 +43,8 @@
             }
         }
     ?>
+
+    <input type="hidden" name="email_lama" value="<?php echo $email; ?>">
     
     <div class="element-form">
         <label>Nama Lengkap</label>	
