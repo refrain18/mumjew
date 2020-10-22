@@ -25,12 +25,6 @@
         if ($email_lama != $email) {
             $update_email = "email = '$email', ";
         }
-
-		// $query = mysqli_query($koneksi, "SELECT * FROM user WHERE email='$email'");
-		// if(mysqli_num_rows($query) == 1){
-		// 	header("location: ".BASE_URL."index.php?page=my_profile&module=data_diri&action=form&user_id=$user_id&notif=gagal_update&pesan_err=email_sama");
-		// 	die();
-		// } else {
         
         // Cek apakah ada perubahan password
         if ($password) {
@@ -40,11 +34,6 @@
             }
             $update_pass = ", password = '$password' ";
         }
-
-        // if ($password != $repassword) {
-        //     header("location: ".BASE_URL."index.php?page=my_profile&module=data_diri&action=form&user_id=$user_id&notif=gagal_update&pesan_err=pass_tidak_sama");
-        //     die();    
-        // } else {
         $sql = mysqli_query($koneksi, "UPDATE 
                                         user 
                                         SET 
@@ -63,8 +52,5 @@
         } else {
             die('Gagal Update, Terjadi kesalahan pada Query!');
         }
-        // }
-            
-		// }
 	}											   
 ?>
