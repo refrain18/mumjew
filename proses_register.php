@@ -8,6 +8,9 @@
     $nama_lengkap = $_POST['nama_lengkap'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
+    $provinsi = $_POST['provinsi'];
+    $kota = $_POST['kota'];
+    $kode_pos = $_POST['kode_pos'];
     $alamat = $_POST['alamat'];
     $password = $_POST['password'];
     $re_password = $_POST['re_password'];
@@ -28,8 +31,8 @@
         header("location: ".BASE_URL."index.php?page=register&notif=nama_lengkap&$dataForm");         
     }else{ 
        $password = md5($password);
-       mysqli_query($koneksi, "INSERT INTO user (level, nama, email, alamat, phone, password, status)
-                                           VALUES ('$level', '$nama_lengkap', '$email', '$alamat', $phone, '$password', '$status')");
+       mysqli_query($koneksi, "INSERT INTO user (level, nama, email, alamat, phone, provinsi, kota, kode_pos, password, status)
+                                           VALUES ('$level', '$nama_lengkap', '$email', '$alamat', '$phone', '$provinsi', '$kota', '$kode_pos', '$password', '$status')")OR die(mysqli_error($koneksi));
 
        header("location: ".BASE_URL."index.php?page=login");                                    
     }

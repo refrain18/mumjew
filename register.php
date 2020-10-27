@@ -16,6 +16,9 @@
         $nama_lengkap = isset($_GET['nama_lengkap']) ? $_GET['nama_lengkap'] : false;
         $email = isset($_GET['email']) ? $_GET['email'] : false;
         $phone = isset($_GET['phone']) ? $_GET['phone'] : false;
+        $provinsi = isset($_GET['provinsi']) ? $_GET['provinsi'] : false;
+        $kota = isset($_GET['kota']) ? $_GET['kota'] : false;
+        $kode_pos = isset($_GET['kode_pos']) ? $_GET['kode_pos'] : false;
         $alamat = isset($_GET['alamat']) ? $_GET['alamat'] : false;
 
         if($notif == 'require'){
@@ -45,7 +48,34 @@
         </div>
 
         <div class="element-form">
-            <label>Alamat</label>
+            <label>Provinsi</label>
+            <span><input type="text" id="input_provinsi" name="provinsi" list="data-provinsi" value="<?php echo $provinsi; ?>" onchange="update_list_kota(this.value);"  required/></span>
+        </div>
+            
+        <?php if(isset($list_provinsi) && is_array($list_provinsi)) : ?>
+            <datalist id="data-provinsi">
+                <?php foreach ($list_provinsi['rajaongkir']['results'] as $key => $value) : ?>
+                    <option><?php echo $value['province'] ?></option>
+                <?php endforeach; ?>
+            </datalist>
+        <?php endif; ?>
+
+        <div class="element-form">
+            <label>Kota</label>
+            <span><input type="text" id="input_kota" name="kota" value="<?php echo $kota ?>" list="data-kota"   required/></span>
+            
+            <datalist id="data-kota">
+                <!-- Data Kota -->
+            </datalist>
+        </div>
+
+        <div class="element-form">
+            <label>Kode Pos</label>
+            <span><input style=" width : 98%; height : 23px;" type="number" name="kode_pos" value="<?php echo $kode_pos ?>"  required/></span>
+        </div>
+
+        <div class="element-form">
+            <label>Alamat Lengkap</label>
             <span><textarea name="alamat"><?php echo $alamat; ?></textarea></span>
         </div>
 
