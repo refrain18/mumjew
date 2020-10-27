@@ -13,6 +13,7 @@
     $keranjang = isset($_SESSION['keranjang']) ? $_SESSION['keranjang'] : array();
     $totalBarang = count($keranjang);
 
+    $keyword = $_GET["keyword"];
 ?>
 
 <!DOCTYPE html>
@@ -34,10 +35,22 @@
 
             <div id="menu">
                 <div id="user">
-                    <?php
+                <?php
+                    if($level == "superadmin"){
+                      $laporan = "<a href='".BASE_URL."index.php?page=laporan&module=laporan_pesanan&action=list'>Laporan</a>";
+                      $style = 'style="display: inline-block; padding-left: 65px;"';
+                    }else if ($level == "customer") {
+                      $style = 'style="display: inline-block; padding-left: 135px;"';
+                      $laporan = "";
+                    }else{
+                      $laporan = "";
+                      $style = 'style="display: inline-block; padding-left: 210px;"';
+
+                    }
                         if($user_id){
                             echo "Hi <b>$nama</b>, 
                                   <a href='".BASE_URL."index.php?page=my_profile&module=pesanan&action=list'>My Profile</a>
+                                  {$laporan}
                                   <a href='".BASE_URL."logout.php'>Logout</a>";
                         }else{
                             echo "<a href='".BASE_URL."login.html'>Login</a>
@@ -45,6 +58,10 @@
                         }
                     ?>
                     
+                <form action="<?php echo BASE_URL."penulusuran.php"; ?>" <?php echo $style ?> method="GET">
+                <input type="text" name="keyword" size="60px" style="border: 0px; height: 18px;" value="<?php echo $keyword ?>"/>
+                            <button >Search</button>
+                </form>
                 </div>
                 <a href="<?php echo BASE_URL."keranjang.html"; ?>" id="button-keranjang">
                     <img src="<?php echo BASE_URL."images/cart.png"; ?>"/>
@@ -68,10 +85,7 @@
             <div id="kanan" style="width: auto;">
 
                 <div id="left" style="padding-left: 120px;">
-                    <form action="<?php echo BASE_URL."penulusuran.php"; ?>" method="GET">
-                            <input type="text" name="keyword" size="40px" placeholder="Ketikan Nama Barang dan Kategori"/>
-                            <button>Search</button>
-                    </form>
+                    
                     <h3>Hasil Pencarian : <?php echo $keyword ?></h3>
                   
                 </div>

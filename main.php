@@ -53,14 +53,7 @@
         </div>
     </div>
 
-    <div id="frame-tambah">
-    <div id="left">
-        <form action="<?php echo BASE_URL."penulusuran.php"; ?>" method="GET">
-                <input type="text" name="keyword" size="40px" placeholder="Ketikan Nama Barang dan Kategori"/>
-                <button>Search</button>
-        </form>
-    </div>
-    </div>
+
 
     <div id="frame-barang">
         <ul>

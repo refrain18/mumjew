@@ -65,8 +65,14 @@
                     <?php
                     if($level == "superadmin"){
                       $laporan = "<a href='".BASE_URL."index.php?page=laporan&module=laporan_pesanan&action=list'>Laporan</a>";
+                      $style = 'style="display: inline-block; padding-left: 65px;"';
+                    }else if ($level == "customer") {
+                      $style = 'style="display: inline-block; padding-left: 135px;"';
+                      $laporan = "";
                     }else{
                       $laporan = "";
+                      $style = 'style="display: inline-block; padding-left: 210px;"';
+
                     }
                         if($user_id){
                             echo "Hi <b>$nama</b>, 
@@ -78,7 +84,14 @@
                                   <a href='".BASE_URL."register.html'>Register</a>";
                         }
                     ?>
-                    
+                                    <!-- <div id="frame-tambah"> -->
+                <!-- <div id="left"> style="display: inline-block; padding-left: 200px;" -->
+                <form action="<?php echo BASE_URL."penulusuran.php"; ?>" <?php echo $style ?>   method="GET">
+                        <input type="text" name="keyword"  size="60px" style="border: 0px; height: 18px;"/>
+                        <button>Search</button>
+                </form>
+                <!-- </div> -->
+                <!-- </div> -->
                 </div>
                 <a href="<?php echo BASE_URL."keranjang.html"; ?>" id="button-keranjang">
                     <img src="<?php echo BASE_URL."images/cart.png"; ?>"/>
