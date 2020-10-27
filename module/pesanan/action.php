@@ -13,8 +13,6 @@
 		
 		$user_id = $_SESSION["user_id"];
 
-		$nomor_rekening = isset($_POST['nomor_rekening']) ? $_POST['nomor_rekening'] : false;
-		$nama_account = isset($_POST['nama_account']) ? $_POST['nama_account'] : false;
 		$tanggal_transfer = isset($_POST['tanggal_transfer']) ? $_POST['tanggal_transfer'] : false;
 
 		if($_FILES["file"]["name"] != "")
@@ -25,9 +23,9 @@
 		}
 
 		$queryPembayaran = mysqli_query($koneksi, "INSERT INTO 
-													konfirmasi_pembayaran (pesanan_id, nomor_rekening, nama_account, bukti_pembayaran, tanggal_transfer)
+													konfirmasi_pembayaran (pesanan_id, bukti_pembayaran, tanggal_transfer)
 												   VALUES 
-												   	('$pesanan_id', '$nomor_rekening', '$nama_account', '$bukti_pembayaran', '$tanggal_transfer')");
+												   	('$pesanan_id', '$bukti_pembayaran', '$tanggal_transfer')");
 																			
 		if($queryPembayaran){
 			mysqli_query($koneksi, "UPDATE pesanan SET status='2' WHERE pesanan_id='$pesanan_id'");
