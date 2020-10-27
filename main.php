@@ -112,6 +112,10 @@
                         if ($disc != 0) {
                             $stripOp = '<del>';
                             $stripEd = '</del>';
+                        }else {
+                            $stripOp = '';
+                            $stripEd = '';
+                            $show_harga_disc = '';
                         }
                     } else {
                         $show_harga_disc = '';

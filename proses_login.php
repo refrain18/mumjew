@@ -3,7 +3,7 @@
     include_once("function/koneksi.php");
     include_once("function/helper.php");
 
-    $kode_member = isset($_POST['kode_member']) ? $_POST['kode_member'] : "";
+    $id_member = isset($_POST['id_member']) ? $_POST['id_member'] : "";
     $email = $_POST['email'];
     $password = md5($_POST['password']);
 
