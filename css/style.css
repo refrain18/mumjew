@@ -342,6 +342,8 @@ body{
 #detail-barang #frame-gambar img {
     display: block;
     margin: 0px auto;
+    width: 500px;
+    height: 400px;
 }
 
 #detail-barang #frame-harga {

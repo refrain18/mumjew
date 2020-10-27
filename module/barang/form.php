@@ -72,7 +72,7 @@
 
     <div class="element-form">
         <label>Nama Barang</label>
-        <span><input type="text" name="nama_barang" value="<?php echo $nama_barang; ?>" /></span>
+        <span><input type="text" name="nama_barang" maxlength="32" value="<?php echo $nama_barang; ?>" /></span>
     </div>
 
     <div style="margin-bottom:10px">
@@ -97,7 +97,7 @@
 
     <div class="element-form">
         <label>Diskon</label>
-        <span><input type="number" name="diskon" value="<?php echo $diskon; ?>" /> % </span>
+        <span><input type="number" name="diskon" min="0" max="100" value="<?php echo $diskon; ?>" /> % </span>
     </div>
 
     <div class="element-form">
