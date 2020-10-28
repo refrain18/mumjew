@@ -9,6 +9,7 @@
     $page = isset($_GET['page']) ? $_GET['page'] : false; 
     $kategori_id = isset($_GET['kategori_id']) ? $_GET['kategori_id'] : false; 
     $bb_id = isset($_GET['bb_id']) ? $_GET['bb_id'] : false; 
+    $no_member = isset($_GET['no_member']) ? $_GET['no_member'] : false; 
 
     $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
     $id_member = isset($_SESSION['id_member']) ? $_SESSION['id_member'] : false;

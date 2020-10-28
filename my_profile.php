@@ -26,6 +26,9 @@
                 <a <?php if($module == "user"){ echo "class='active'"; } ?> href="<?php echo BASE_URL."index.php?page=my_profile&module=user&action=list";?>">User</a>
             </li>
             <li>
+                <a <?php if($module == "member"){ echo "class='active'"; } ?> href="<?php echo BASE_URL."index.php?page=my_profile&module=member&action=list";?>">Member</a>
+            </li>
+            <li>
                 <a <?php if($module == "banner"){ echo "class='active'"; } ?> href="<?php echo BASE_URL."index.php?page=my_profile&module=banner&action=list";?>">Banner</a>
             </li>
             <li>
