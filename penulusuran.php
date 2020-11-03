@@ -81,6 +81,7 @@
                  $ambil = $koneksi->query("SELECT barang.*, kategori.kategori, banner_branded.banner_branded FROM barang JOIN kategori ON barang.kategori_id=kategori.kategori_id JOIN banner_branded ON barang.bb_id=banner_branded.bb_id WHERE barang.status='on' AND barang.stok > 0 AND 
                                            nama_barang LIKE '%$keyword%' OR banner_branded LIKE '%$keyword%' OR kategori LIKE '%$keyword%'");
                 
+                    
             ?>
             <div id="kanan" style="width: auto;">
 
@@ -112,6 +113,10 @@
                                 ?>
                         
                         <?php
+
+                            $kategori = strtolower($pecah["kategori"]);
+                            $barang = strtolower($pecah["nama_barang"]);
+                            $barang = str_replace(" ", "-", $barang);
                             // Pengkondisian untuk menampilkan harga distributor
                             if ($level == "superadmin") {
                                 $show_harga_dist = "<p class='priced'>".rupiah($pecah['harga_distributor'])."</p>";
@@ -146,7 +151,7 @@
                                     echo $show_harga_disc;
                                     ?>
                                 </div>
-                                    <a href="<?php //echo BASE_URL.''.$pecah['barang_id'].'/'.$pecah['kategori'].'/'.$pecah['nama_barang'].'html' ?>" >
+                                    <a href="<?php echo BASE_URL.''.$pecah['barang_id'].'/'.$kategori.'/'.$barang.'.html' ?>" >
                                         <img src="<?php echo BASE_URL.'images/barang/'.$pecah['gambar']; ?>" />
                                     </a> 
                                 <div class="keterangan-gambar"> 
