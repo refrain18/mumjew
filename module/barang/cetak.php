@@ -11,10 +11,35 @@ use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
 // Get Laporan Data
-$barang_id = isset($_GET["barang_id"]) ? $_GET["barang_id"] : '';
-$brand = isset($_GET["banner_branded"]) ? $_GET["banner_branded"] : 'Semua';
+$barang_id = isset($_GET['barang_id']) ? $_POST['barang_id'] : false;
+$brand_cetak = isset($_POST['brand_cetak']) ? $_POST['brand_cetak'] : false;
+// var_dump($brand_cetak);die;
+$stk_a = $_POST['stk_a'];
+$stk_b = $_POST['stk_b'];
 
-$query = mysqli_query($koneksi, "SELECT count(barang.barang_id) as jumlah, banner_branded.banner_branded FROM barang JOIN banner_branded ON barang.bb_id=banner_branded.bb_id") OR die(mysqli_error($koneksi));
+// echo "$brand_cetak dan $stk_a dan $stk_b";
+// die();
+
+$where="";
+if ($stk_a && $stk_b && $brand_cetak == false) {
+    $where = "WHERE stok BETWEEN '$stk_a' AND '$stk_b' ORDER BY stok ASC";
+    $stok = "$stk_a s/d $stk_b";
+    $brand_cetak="Semua";
+}elseif (($stk_a && $stk_b) && $brand_cetak == true) {
+    $where = "WHERE stok BETWEEN '$stk_a' AND '$stk_b' AND banner_branded='$brand_cetak' ORDER BY stok ASC";
+    $stok = "$stk_a s/d $stk_b";
+    $brand_cetak = $brand_cetak;
+}elseif ($stk_a == 0 && $stk_b == 0 && $brand_cetak) {
+    $where = "WHERE banner_branded='$brand_cetak'";
+    $stok ="Semua";   
+}else{
+    $where="";
+    $stok ="Semua";
+    $brand_cetak="Semua";
+}
+// var_dump($brand_cetak);die;
+
+$query = mysqli_query($koneksi, "SELECT count(barang.barang_id) as jumlah, banner_branded FROM barang JOIN banner_branded ON barang.bb_id=banner_branded.bb_id $where") OR die(mysqli_error($koneksi));
 $data = mysqli_fetch_assoc($query);
 $jml_data = $data['jumlah'];
 
@@ -32,7 +57,12 @@ $isiLaporan .= '
       <tr>
         <th>Brand</th>
         <td> : </td>
-        <td>'.$brand.'</td>
+        <td>'.$brand_cetak.'</td>
+      </tr>
+      <tr>
+        <th>Stok</th>
+        <td> : </td>
+        <td>'.$stok.'</td>
       </tr>		
       <tr>
         <th>Jumlah Data</th>
@@ -43,7 +73,7 @@ $isiLaporan .= '
   </div>';
 
 
-  $query = mysqli_query($koneksi, "SELECT barang_id, nama_barang, harga, harga_distributor, banner_branded.banner_branded, stok FROM barang JOIN banner_branded ON barang.bb_id=banner_branded.bb_id") OR die(mysqli_error($koneksi));
+  $query = mysqli_query($koneksi, "SELECT  barang_id, nama_barang, harga, harga_distributor, banner_branded, stok, barang.status FROM barang JOIN banner_branded ON barang.bb_id=banner_branded.bb_id $where") OR die(mysqli_error($koneksi));
   
 
   $no = 1;
@@ -56,15 +86,18 @@ $isiLaporan .= '
     $harga_distributor = $row['harga_distributor'];
     $brand = $row['banner_branded'];
     $stok = $row['stok'];
-
+    $status = $row['status'];
+    
     $order .= "
       <tr>
         <td class='no'>$no</td>
         <td class='kiri'>$barang_id</td>
         <td class='kanan'>$nama_barang</td>
+        <td class='kanan'>$brand</td>
         <td class='tengah'>".rupiah($harga_distributor)."</td>
         <td class='tengah'>".rupiah($harga)."</td>
         <td class='kanan'>$stok</td>
+        <td class='kanan'>$status</td>
       </tr>";
 
     $no++;
@@ -77,9 +110,11 @@ $isiLaporan .= '
           <th scope="col">No</th>
           <th scope="col">Kode</th>
           <th scope="col">Nama</th>
+          <th scope="col">Brand</th>
           <th scope="col">Harga Distributor</th>
           <th scope="col">Harga Jual</th>
           <th scope="col">Stok</th>
+          <th scope="col">Status</th>
         </tr>
       </thead>
       <tbody>
@@ -90,11 +125,11 @@ $isiLaporan .= '
 $dompdf->loadHtml('
   <html>
     <head>
-      <title>Cetak Laporan</title>
+      <title>Cetak Laporan Stok</title>
       '.$style.'
       <style>
         #tabel-laporan {
-          font-size: 10pt;
+          font-size: 12pt;
           margin: 20px 0px;
         }
       </style>

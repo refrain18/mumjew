@@ -3,15 +3,19 @@
     if($totalBarang == 0) {
         echo "<h3>Saat ini belum ada data di dalam keranjang belanja anda</h3>";
     }else{
-
+        foreach($keranjang AS $key => $value){
         if($id_member){
             $diskonMember = "<th class='tengah'>Diskon</th>";
-            $hargaDiskon = "<th class='kanan'>Harga Diskon</th>";
+            $hargaDiskon = "<th class='kanan'>Harga Member</th>";
+            $disc = $value['diskon'];
+        }else if ($id_member && $disc = 0) {
+            $diskonMember = "";
+            $hargaDiskon = "<th class='kanan'>Harga Member</th>";
         }else{
             $diskonMember = "";
             $hargaDiskon = "";
         }
-
+    }
         $no=1;
 
         echo "<table class='table-list'>
@@ -20,7 +24,7 @@
                     <th class='kiri'>Image</th>
                     <th class='kiri'>Nama Barang</th>
                     <th class='tengah'>Qty</th>
-                    {$diskonMember}
+                    
                     <th class='kanan'>Harga Satuan</th>
                     {$hargaDiskon}
                     <th class='kanan'>Total</th>
@@ -44,7 +48,10 @@
             $total = $quantity * $total_harga_diskon;
             $rowDiskon = "<td class='tengah'>$diskon %</td>";
             $rowHargaDiskon = "<td class='kanan'>".rupiah($total_harga_diskon)."</td>";
-            $colspan = 7;
+            $colspan = 6;
+            if ($diskon = 0) {
+                $rowDiskon ="";
+            }
         }else{
             $total = $quantity * $harga;   
             $rowDiskon ="";
@@ -61,7 +68,7 @@
                 <td class='kiri'><img src='".BASE_URL."images/barang/$gambar' height='100px'/></td>
                 <td class='kiri'>$nama_barang</td>
                 <td class='tengah'><input type='number' name='$barang_id' value='$quantity' class='update-quantity' /></td>
-                {$rowDiskon}
+                
                 <td class='kanan'>".rupiah($harga)."</td>
                 {$rowHargaDiskon}
                 <td class='kanan hapus_item'>".rupiah($total)." <a href='".BASE_URL."hapus_item.php?barang_id=$barang_id'>X</a></td>

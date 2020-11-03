@@ -12,7 +12,7 @@
 	$alamat = $row['alamat'];
 	$nama = $row['nama'];
 	$mtd_pengiriman = $row['metode_pengiriman'];
-	$mtd_pembayaran = $row['metode_pembayaran'] == 'tf' ? 'Transfer': 'COD';
+	$mtd_pembayaran = $row['metode_pembayaran'] == 'Transfer' ? 'Transfer': 'COD';
 	
 ?>
 
@@ -71,7 +71,7 @@
 
 		if ($id_member || $level == "superadmin") {
 			$labelDiskon = "<th class='tengah'>Diskon</th>";
-			$labelHargaDiskon = "<th class='kanan'>Harga Diskon</th>";
+			$labelHargaDiskon = "<th class='kanan'>Harga Member</th>";
 			$jenisHarga = "Asli";
 		}else{
 			$labelDiskon = "";
@@ -86,10 +86,10 @@
 			<th class="no">No</th>
 			<th class="kiri">Nama Barang</th>
 			<th class="tengah">Qty</th>
-			<?php echo $labelDiskon ?>
+			<?php //echo $labelDiskon ?>
 			<th class="kanan">Harga <?php echo $jenisHarga ?></th>
 			<?php echo $labelHargaDiskon ?>
-			<th class="kanan">Total</th>
+			<th class="kanan">Sub Total</th>
 		</tr>
 		
 		<?php
@@ -108,6 +108,12 @@
 				$total = $rowDetail["harga"] * $rowDetail["quantity"];
 				$subtotal = $subtotal + $total;
 				
+				if ($rowDetail["harga"] != $rowDetail["harga_asli"]) {
+					$diskon = $rowDetail["diskon"];
+				}else {
+					$diskon = 0;
+				}
+
 				if ($id_member || $level == "superadmin") {
 					$isiDiskon = "<td class='tengah'>$diskon %</td>";
 					$isiHargaAsli = "<td class='kanan'>".rupiah($hargaAsli)."</td>";
@@ -116,11 +122,13 @@
 					$isiHargaAsli = "";
 				}
 
+				
+
 				echo "<tr>
 						<td class='no'>$no</td>
 						<td class='kiri'>$rowDetail[nama_barang]</td>
 						<td class='tengah'>$rowDetail[quantity]</td>
-						{$isiDiskon}
+						
 						{$isiHargaAsli}
 						<td class='kanan'>".rupiah($rowDetail["harga"])."</td>
 						<td class='kanan'>".rupiah($total)."</td>
@@ -134,7 +142,7 @@
 			$subtotal = $subtotal + $biaya_pengiriman;
 			
 			if ($id_member || $level == "superadmin") {
-				$colspan = 6;
+				$colspan = 5;
 			}else{
 				$colspan = 4;
 			}
@@ -147,7 +155,7 @@
 		</tr>
 
 		<tr>
-		    <td class="kanan" colspan="<?php echo $colspan ?>"><b>Sub Total</b></td>
+		    <td class="kanan" colspan="<?php echo $colspan ?>"><b>Total</b></td>
 			<td class="kanan"><b><?php echo rupiah($subtotal); ?></b></td>
 		</tr>	
   	

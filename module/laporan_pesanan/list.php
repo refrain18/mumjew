@@ -8,7 +8,7 @@
 			$where = "WHERE pesanan.pesanan_id LIKE '%$search%' || user.nama LIKE '%$search%'";                
 	} 
 ?>
-<?php if($level == "superadmin"){ ?>
+<?php if($level == "superadmin"){ ?>	
 <div id="frame-tambah">
 	<div id="left">
 		<form action="<?php echo BASE_URL."index.php"; ?>" method="GET">
@@ -19,7 +19,32 @@
 			<input type="submit" value="Search" />
 		</form>
 	</div>
-	<br>
+	<div id="right">
+	<a class="tombol-action" href="#popup">Cetak</a>
+	</div>	
+	<br>	
+</div>
+
+<div id="popup">
+    <div class="window">
+        <a href="#" class="close-button" title="Close">X</a>
+        <h4><center> Cetak PDF Laporan Pemesanan</center></h4>
+
+        <form action="<?php echo "module/laporan_pesanan/cetak_filter.php"; ?>" target='_BLANK' method="POST">
+        <div class="element-form">      
+			<label>Tanggal Pesanan</label>
+			<br>
+			<label>Mulai dari</label>
+			<input type="date" name="tgl_a"/> 
+			<br>
+			<label>Sampai</label> 
+			<input type="date" name="tgl_b"/>
+        </div>
+        <div class="element-form">
+            <span ><button class='tombol-action'>Cetak</button></span>
+		</div>
+		</form>
+	</div>
 </div>
 <?php } ?>
 <?php
@@ -59,7 +84,7 @@
 							<td class='kiri'>$row[nama]</td>
 							<td class='kiri'>$arrayStatusPesanan[$status]</td>
 							<td class='kiri'>
-								<a class='tombol-action' href='".BASE_URL."index.php?page=my_profile&module=laporan_pesanan&action=detail&pesanan_id=$row[pesanan_id]'>Detail Pesanan</a>
+								<a class='tombol-action' href='".BASE_URL."index.php?page=laporan&module=laporan_pesanan&action=detail&pesanan_id=$row[pesanan_id]'>Detail Pesanan</a>
 								<a class='tombol-action' href='".BASE_URL."module/laporan_pesanan/cetak.php?pesanan_id=$row[pesanan_id]' target='_BLANK'>Cetak</a>
 							</td>
 						</tr>";

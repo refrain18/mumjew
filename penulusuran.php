@@ -13,6 +13,7 @@
     $keranjang = isset($_SESSION['keranjang']) ? $_SESSION['keranjang'] : array();
     $totalBarang = count($keranjang);
 
+    $keyword = $_GET["keyword"];
 ?>
 
 <!DOCTYPE html>
@@ -29,15 +30,27 @@
     <div id="container">
         <div id="header">
             <a href="<?php echo BASE_URL."index.php"; ?>">
-                <img src="<?php echo BASE_URL."images/logo.png"; ?>"/>
+                <img src="<?php echo BASE_URL."images/logo1.png"; ?>"/>
             </a>
 
             <div id="menu">
                 <div id="user">
-                    <?php
+                <?php
+                    if($level == "superadmin"){
+                      $laporan = "<a href='".BASE_URL."index.php?page=laporan&module=laporan_pesanan&action=list'>Laporan</a>";
+                      $style = 'style="display: inline-block; padding-left: 65px;"';
+                    }else if ($level == "customer") {
+                      $style = 'style="display: inline-block; padding-left: 135px;"';
+                      $laporan = "";
+                    }else{
+                      $laporan = "";
+                      $style = 'style="display: inline-block; padding-left: 210px;"';
+
+                    }
                         if($user_id){
                             echo "Hi <b>$nama</b>, 
                                   <a href='".BASE_URL."index.php?page=my_profile&module=pesanan&action=list'>My Profile</a>
+                                  {$laporan}
                                   <a href='".BASE_URL."logout.php'>Logout</a>";
                         }else{
                             echo "<a href='".BASE_URL."login.html'>Login</a>
@@ -45,6 +58,10 @@
                         }
                     ?>
                     
+                <form action="<?php echo BASE_URL."penulusuran.php"; ?>" <?php echo $style ?> method="GET">
+                <input type="text" name="keyword" size="60px" style="border: 0px; height: 18px;" value="<?php echo $keyword ?>"/>
+                            <button >Search</button>
+                </form>
                 </div>
                 <a href="<?php echo BASE_URL."keranjang.html"; ?>" id="button-keranjang">
                     <img src="<?php echo BASE_URL."images/cart.png"; ?>"/>
@@ -64,14 +81,12 @@
                  $ambil = $koneksi->query("SELECT barang.*, kategori.kategori, banner_branded.banner_branded FROM barang JOIN kategori ON barang.kategori_id=kategori.kategori_id JOIN banner_branded ON barang.bb_id=banner_branded.bb_id WHERE barang.status='on' AND barang.stok > 0 AND 
                                            nama_barang LIKE '%$keyword%' OR banner_branded LIKE '%$keyword%' OR kategori LIKE '%$keyword%'");
                 
+                    
             ?>
             <div id="kanan" style="width: auto;">
 
                 <div id="left" style="padding-left: 120px;">
-                    <form action="<?php echo BASE_URL."penulusuran.php"; ?>" method="GET">
-                            <input type="text" name="keyword" size="40px" placeholder="Ketikan Nama Barang dan Kategori"/>
-                            <button>Search</button>
-                    </form>
+                    
                     <h3>Hasil Pencarian : <?php echo $keyword ?></h3>
                   
                 </div>
@@ -98,6 +113,10 @@
                                 ?>
                         
                         <?php
+
+                            $kategori = strtolower($pecah["kategori"]);
+                            $barang = strtolower($pecah["nama_barang"]);
+                            $barang = str_replace(" ", "-", $barang);
                             // Pengkondisian untuk menampilkan harga distributor
                             if ($level == "superadmin") {
                                 $show_harga_dist = "<p class='priced'>".rupiah($pecah['harga_distributor'])."</p>";
@@ -132,7 +151,7 @@
                                     echo $show_harga_disc;
                                     ?>
                                 </div>
-                                    <a href="<?php //echo BASE_URL.''.$pecah['barang_id'].'/'.$pecah['kategori'].'/'.$pecah['nama_barang'].'html' ?>" >
+                                    <a href="<?php echo BASE_URL.''.$pecah['barang_id'].'/'.$kategori.'/'.$barang.'.html' ?>" >
                                         <img src="<?php echo BASE_URL.'images/barang/'.$pecah['gambar']; ?>" />
                                     </a> 
                                 <div class="keterangan-gambar"> 

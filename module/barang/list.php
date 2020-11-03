@@ -15,16 +15,62 @@
                 <input type="hidden" name="page" value="<?php echo $_GET["page"] ?>" />
                 <input type="hidden" name="module" value="<?php echo $_GET["module"] ?>" />
                 <input type="hidden" name="action" value="<?php echo $_GET["action"] ?>" />
-                <input type="text" name="search" value="<?php echo $search; ?>" size="40px" placeholder="Ketikan Nama Barang atau Kategori"/>
+                <input type="text" name="search" value="<?php echo $search; ?>" size="30px" placeholder="Ketikan Nama Barang atau Kategori"/>
                 <input type="submit" value="Search" />
         </form>
     </div>
     <div id="right">
-    <?php echo 
-        "<a class='tombol-action' href='".BASE_URL."module/barang/cetak.php?barang_id=' target='_BLANK'>Cetak</a>";
-    ?>    
-        <a href="<?php echo BASE_URL."index.php?page=my_profile&module=barang&action=form"; ?>" class="tombol-action">+ Tambah Barang</a>
+            <a class="tombol-action" href="#popup">Cetak</a>
+            <a href="<?php echo BASE_URL."index.php?page=my_profile&module=barang&action=form"; ?>" class="tombol-action">+ Tambah Barang</a>
     </div>
+</div>
+
+<div id="popup">
+    <div class="windowStok">
+        <a href="#" class="close-button" title="Close">X</a>
+        <h4><center> Cetak PDF Laporan Stok</center></h4>
+
+        <form action="<?php echo "module/barang/cetak.php"; ?>" target='_BLANK' method="POST">
+        <div class="element-form">      
+            <label>Stok</label>
+            <input type="text" name="stk_a"  size="3px" /> S/D <input type="text" name="stk_b"  size="3px" />
+        </div> 
+        <script type="text/javascript">
+            function run(){
+                var cb = document.getElementById("cb");
+                
+                if(document.getElementById("cekbox").checked == true){
+                    cb.disabled = true;
+                }else{
+                    cb.disabled = false;
+                }
+                
+            }
+        </script> 
+        <input type="checkbox" name="a" id="cekbox" onclick="run();" />Disable Brand<br /><br />
+        <div class="element-form"> 
+            <label>Brand</label>
+            <span style="width: 50%;"> 
+                <select name="brand_cetak" id="cb"                  >
+                    <?php
+                        $query = mysqli_query($koneksi, "SELECT banner_branded FROM banner_branded WHERE status='on' ORDER BY banner_branded ASC");
+                        while($row=mysqli_fetch_assoc($query)){
+                            if($brand == $row['banner_branded']) {
+                                echo "<option value='$row[banner_branded]' selected='true'>$row[banner_branded]</option>";
+                            }else{
+                                echo "<option value='$row[banner_branded]'>$row[banner_branded]</option>";
+                            }
+                        }
+                    ?>
+                </select>
+            </span>
+        </div>
+        <div class="element-form" >
+            <button class='tombol-action' style="display:inline-block;">Cetak</button>
+           
+        </div>
+        </form>
+   </div>
 </div>
 
 <?php 
@@ -118,7 +164,8 @@
 
         }      
         echo "</table>";
-
+         
+        
         $queryHitungBarang = mysqli_query($koneksi, "SELECT * FROM barang JOIN kategori ON barang.kategori_id=kategori.kategori_id JOIN banner_branded ON barang.bb_id=banner_branded.bb_id $where");
         pagination($queryHitungBarang, $data_per_halaman, $pagination, "index.php?page=my_profile&module=barang&action=list$search_url");
     }

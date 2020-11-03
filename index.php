@@ -9,6 +9,7 @@
     $page = isset($_GET['page']) ? $_GET['page'] : false; 
     $kategori_id = isset($_GET['kategori_id']) ? $_GET['kategori_id'] : false; 
     $bb_id = isset($_GET['bb_id']) ? $_GET['bb_id'] : false; 
+    $no_member = isset($_GET['no_member']) ? $_GET['no_member'] : false; 
 
     $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
     $id_member = isset($_SESSION['id_member']) ? $_SESSION['id_member'] : false;
@@ -57,7 +58,7 @@
     <div id="container">
         <div id="header">
             <a href="<?php echo BASE_URL."index.php"; ?>">
-                <img src="<?php echo BASE_URL."images/logo.png"; ?>"/>
+                <img src="<?php echo BASE_URL."images/logo1.png"; ?>"/>
             </a>
 
             <div id="menu">
@@ -65,8 +66,14 @@
                     <?php
                     if($level == "superadmin"){
                       $laporan = "<a href='".BASE_URL."index.php?page=laporan&module=laporan_pesanan&action=list'>Laporan</a>";
+                      $style = 'style="display: inline-block; padding-left: 65px;"';
+                    }else if ($level == "customer") {
+                      $style = 'style="display: inline-block; padding-left: 135px;"';
+                      $laporan = "";
                     }else{
                       $laporan = "";
+                      $style = 'style="display: inline-block; padding-left: 210px;"';
+
                     }
                         if($user_id){
                             echo "Hi <b>$nama</b>, 
@@ -78,7 +85,14 @@
                                   <a href='".BASE_URL."register.html'>Register</a>";
                         }
                     ?>
-                    
+                                    <!-- <div id="frame-tambah"> -->
+                <!-- <div id="left"> style="display: inline-block; padding-left: 200px;" -->
+                <form action="<?php echo BASE_URL."penulusuran.php"; ?>" <?php echo $style ?>   method="GET">
+                        <input type="text" name="keyword"  size="60px" style="border: 0px; height: 18px;"/>
+                        <button>Search</button>
+                </form>
+                <!-- </div> -->
+                <!-- </div> -->
                 </div>
                 <a href="<?php echo BASE_URL."keranjang.html"; ?>" id="button-keranjang">
                     <img src="<?php echo BASE_URL."images/cart.png"; ?>"/>
@@ -260,7 +274,7 @@
 
             // Response
             if (res.data != '') {
-              if (metode_pembayaran == 'cod') {
+              if (metode_pembayaran == 'COD') {
                 if (parent_kurir.querySelectorAll('.kurir_tambahan')) {
                   var opt_grp = parent_kurir.querySelectorAll(".kurir_tambahan");
                   opt_grp.forEach(function(el) {
@@ -271,12 +285,12 @@
               // Info Kurir Mumtaza
               alert(res.message);
             } else {
-              if (metode_pembayaran == 'tf') {
+              if (metode_pembayaran == 'Transfer') {
                 if (parent_kurir.querySelector('#kurir_mumtaza')) {
                   var kurir_opt = document.querySelector("#kurir_mumtaza");
                   kurir_opt.parentNode.removeChild(kurir_opt);
                 }
-              } else if (metode_pembayaran == 'cod') {
+              } else if (metode_pembayaran == 'COD') {
                 // Membersihkan Opsi Metode Pengiriman
                 if (parent_kurir.querySelector('#kurir_mumtaza')) {
                   // Hapus Semua Opsi Metode Pengiriman
@@ -389,10 +403,10 @@
             }
 
             // Cek Metode Pembayaran
-            if (metode_pembayaran == 'tf') {
+            if (metode_pembayaran == 'Transfer') {
               // Cek Jangkauan Kurir Mumtaza
               cek_jangkauan_kurir_toko(kota_tujuan, metode_pembayaran);
-            } else if (metode_pembayaran == 'cod') {
+            } else if (metode_pembayaran == 'COD') {
               // Cek Jangkauan Kurir Mumtaza
               cek_jangkauan_kurir_toko(kota_tujuan, metode_pembayaran);
             }
