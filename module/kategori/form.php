@@ -16,6 +16,7 @@
     }
 
 ?>
+
 <form action="<?php echo BASE_URL."module/kategori/action.php?kategori_id=$kategori_id";?>" method="POST">
     <?php
     // notif kategori sudah ada
@@ -34,6 +35,9 @@
         }
     //====///
     ?>
+
+    <input type="hidden" name="kategori_lama" value="<?php echo $kategori; ?>">
+
     <div class="element-form">
         <label>Kategori</label>
         <span><input type="text" name="kategori" value="<?php echo $kategori; ?>" /></span>
