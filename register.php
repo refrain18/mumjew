@@ -23,6 +23,8 @@
 
         if($notif == 'require'){
             echo "<div class='notif'>Maaf, kamu harus melengkapi form dibawah ini</div>";
+        }else if($notif == 'phone'){
+            echo "<div class='notif'>Maaf, nomor telepon yang dimasukan harus angka</div>";    
         }else if($notif == 'password'){
             echo "<div class='notif'>Maaf, password yang kamu masukan tidak sama</div>";
         }else if($notif == 'email'){
@@ -30,7 +32,9 @@
         }elseif ($notif == 'nama_lengkap') {
             echo "<div class='notif'>Maaf, nama yang kamu masukan harus huruf</div>";
         }elseif ($notif == 'passwordChar') {
-            echo "<div class='notif'>Maaf, Harus menyertakan setidaknya satu huruf besar dan satu angka</div>";
+            echo "<div class='notif'>Maaf, password harus menyertakan setidaknya satu huruf besar dan satu angka</div>";
+        }elseif ($notif == 'kodepos') {
+            echo "<div class='notif'>Maaf, kode pos harus 5 angka</div>";
         }
     ?>
 

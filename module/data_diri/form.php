@@ -9,6 +9,7 @@
         $button = "Edit";
     }
 
+    
     $queryUser = mysqli_query($koneksi, "SELECT * FROM user WHERE user_id='$user_id'");
     $row=mysqli_fetch_array($queryUser);
     
@@ -34,36 +35,53 @@
   <form action="<?php echo BASE_URL."module/data_diri/action.php?user_id=$user_id"?>" method="POST">
   
     <?php
-        if (isset($_GET['notif']) && isset($_GET['pesan_err'])) {
 
-            if ($_GET['pesan_err'] == 'email_sama') {
-                echo notifTransaksi($_GET['notif'] ,"Email");
-            } else {
+        $notif = isset($_GET['notif']) ? $_GET['notif'] : false;
+
+        if($notif == 'nama') {
+            echo "<div class='notif' id='notif'>Maaf, nama yang kamu masukan harus huruf</div>";
+        }elseif($notif == 'phone'){
+            echo "<div class='notif' id='notif'>Maaf, nomor telepon yang dimasukan harus angka</div>";    
+        }elseif($notif == 'email'){
+            echo "<div class='notif' id='notif'>Maaf, email yang kamu masukan sudah terdaftar</div>";    
+        }elseif ($notif == 'passwordChar') {
+            echo "<div class='notif' id='notif'>Maaf, Harus menyertakan setidaknya satu huruf besar dan satu angka</div>";
+        }elseif ($notif == 'kodepos') {
+            echo "<div class='notif' id='notif'>Maaf, kode pos harus 5 angka</div>";
+        }
+
+        if (isset($_GET['pesan_err'])) {
                 $pass_err = '<span id="notif" style="color: red; padding: 5px 10px; margin-bottom: 5px">*Password tidak sama</span>';
             }
+        
+
+
+        if ( isset($_GET['notif']) ) {
+            echo notifTransaksi($_GET['notif'],"Data Diri");
         }
+        
     ?>
 
     <input type="hidden" name="email_lama" value="<?php echo $email; ?>">
     
     <div class="element-form">
         <label>Nama Lengkap</label>	
-        <span><input type="text" name="nama" value="<?php echo $nama; ?>" <?php echo $akses?>/></span>
+        <span><input type="text" name="nama" value="<?php echo $nama; ?>" <?php echo $akses?> required/></span>
     </div>	
 
     <div class="element-form">
         <label>Email</label>	
-        <span><input type="text" name="email" value="<?php echo $email; ?>" <?php echo $akses?>/></span>
+        <span><input type="email" style=" width : 98%; height : 23px;" name="email" value="<?php echo $email; ?>" <?php echo $akses?> required/></span>
     </div>		
 
     <div class="element-form">
         <label>Phone</label>	
-        <span><input type="text" name="phone" value="<?php echo $phone; ?>" <?php echo $akses?>/></span>
+        <span><input type="phone" style=" width : 98%; height : 23px;" minlength="11" maxlength="12" name="phone" value="<?php echo $phone; ?>" <?php echo $akses?> required/></span>
     </div>	
 
     <div class="element-form">
         <label>Provinsi</label>
-        <span><input type="text" id="input_provinsi" name="provinsi" value="<?php echo $provinsi; ?>" list="data-provinsi" onchange="update_list_kota(this.value);" <?php echo $akses?>/></span>
+        <span><input type="text" id="input_provinsi" name="provinsi" value="<?php echo $provinsi; ?>" list="data-provinsi" onchange="update_list_kota(this.value);" <?php echo $akses?> required/></span>
 
         <?php if(isset($list_provinsi) && is_array($list_provinsi)) : ?>
             <datalist id="data-provinsi">
@@ -77,7 +95,7 @@
 
     <div class="element-form">
         <label>Kota</label>
-        <span><input type="text" id="input_kota" name="kota" list="data-kota" value="<?php echo $kota; ?>" <?php echo $akses?>/></span>
+        <span><input type="text" id="input_kota" name="kota" list="data-kota"  value="<?php echo $kota; ?>" <?php echo $akses?> required/></span>
 
         <datalist id="data-kota">
             <!-- Data Kota -->
@@ -86,17 +104,18 @@
 
     <div class="element-form">
         <label>Kode Pos</label>
-        <span><input type="text" name="kode_pos" value="<?php echo $kode_pos; ?>" <?php echo $akses?>/></span>
+        <span><input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" 
+            style=" width : 98%; height : 23px;" min="0" maxlength="5" type="number" name="kode_pos" value="<?php echo $kode_pos; ?>" <?php echo $akses?> required/></span>
     </div>
 
     <div class="element-form">
         <label>Alamat Lengkap</label>	
-        <span><textarea name="alamat" id="" cols="30" rows="5" <?php echo $akses?>><?php echo $alamat; ?></textarea></span>
+        <span><textarea name="alamat" id="" cols="30" rows="5" <?php echo $akses?> required><?php echo $alamat; ?> </textarea></span>
     </div>		
 
     <div class="element-form" <?php echo $hidden ;?>>
         <label>Password</label>	
-        <span><input type="password" name="password" <?php echo $akses?>/></span>
+        <span><input type="password" minlength="8" name="password" <?php echo $akses?>/></span>
     </div>		
  
     <div class="element-form" <?php echo $hidden?>>

@@ -20,6 +20,8 @@
     $lowercase = preg_match('@[a-z]@', $password);
     $number    = preg_match('@[0-9]@', $password);
 
+    // validasi no telepon
+
     unset($_POST['password']);
     unset($_POST['re_password']);
     $dataForm = http_build_query($_POST);
@@ -28,6 +30,8 @@
     
     if(empty($nama_lengkap) || empty($email) || empty($phone) || empty($alamat) || empty($password)){
         header("location: ".BASE_URL."index.php?page=register&notif=require&$dataForm");
+    }elseif(!preg_match("/^[0-9]*$/",$phone)){
+        header("location: ".BASE_URL."index.php?page=register&notif=phone&$dataForm");    
     }elseif($password != $re_password){
         header("location: ".BASE_URL."index.php?page=register&notif=password&$dataForm");
     }else if (!$uppercase || !$lowercase || !$number || strlen($password) < 8){
@@ -35,7 +39,9 @@
     }elseif(mysqli_num_rows($query) == 1){
         header("location: ".BASE_URL."index.php?page=register&notif=email&$dataForm");
     }elseif(!preg_match("/^[a-zA-Z\s]*$/",$nama_lengkap)){
-        header("location: ".BASE_URL."index.php?page=register&notif=nama_lengkap&$dataForm");         
+        header("location: ".BASE_URL."index.php?page=register&notif=nama_lengkap&$dataForm");
+    }elseif(strlen($kode_pos) < 5){
+        header("location: ".BASE_URL."index.php?page=register&notif=kodepos&$dataForm");         
     }else{ 
        $password = md5($password);
        mysqli_query($koneksi, "INSERT INTO user (level, nama, email, alamat, phone, provinsi, kota, kode_pos, password, status)

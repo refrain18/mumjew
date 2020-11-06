@@ -17,6 +17,18 @@
     $repassword = !empty($_POST['repassword']) ? md5($_POST['repassword']) : false;
 
 	if ($button == "Update") {
+
+    if(!preg_match("/^[a-zA-Z\s]*$/",$nama)){
+        header("location: ".BASE_URL."index.php?page=my_profile&module=data_diri&action=form&user_id=$user_id&notif=nama");
+        die();
+    }elseif(!preg_match("/^[0-9]*$/",$phone)){
+        header("location: ".BASE_URL."index.php?page=my_profile&module=data_diri&action=form&user_id=$user_id&notif=phone");
+        die();    
+    }elseif(strlen($kode_pos) < 5){
+        header("location: ".BASE_URL."index.php?page=my_profile&module=data_diri&action=form&user_id=$user_id&notif=kodepos");
+        die();
+    }else{  
+
         // Prepare Var
         $update_email = '';
         $update_pass = '';
@@ -25,14 +37,30 @@
         if ($email_lama != $email) {
             $update_email = "email = '$email', ";
         }
-        
+        $query = mysqli_query($koneksi, "SELECT * FROM user WHERE email='$email'");
+        if(mysqli_num_rows($query) == 1){
+            $v = mysqli_fetch_array($query);
+            if($v['email'] != $email_lama){
+            header("location: ".BASE_URL."index.php?page=my_profile&module=data_diri&action=form&user_id=$user_id&notif=email");
+            die();
+            }
+        }
+        // validasi password
+        $uppercase = preg_match('@[A-Z]@', $password);
+        $lowercase = preg_match('@[a-z]@', $password);
+        $number    = preg_match('@[0-9]@', $password);
+
         // Cek apakah ada perubahan password
         if ($password) {
             if ($password != $repassword) {
-                header("location: ".BASE_URL."index.php?page=my_profile&module=data_diri&action=form&user_id=$user_id&notif=gagal_update&pesan_err=pass_tidak_sama");
+                header("location: ".BASE_URL."index.php?page=my_profile&module=data_diri&action=form&user_id=$user_id&pesan_err=pass_tidak_sama");
                 die();    
             }
             $update_pass = ", password = '$password' ";
+            if (!$uppercase || !$lowercase || !$number || strlen($password) < 8){
+                header("location: ".BASE_URL."index.php?page=my_profile&module=data_diri&action=form&user_id=$user_id&notif=passwordChar");
+                die();
+            }
         }
         $sql = mysqli_query($koneksi, "UPDATE 
                                         user 
@@ -52,5 +80,6 @@
         } else {
             die('Gagal Update, Terjadi kesalahan pada Query!');
         }
-	}											   
+    }
+}											   
 ?>
