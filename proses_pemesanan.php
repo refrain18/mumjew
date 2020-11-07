@@ -17,6 +17,7 @@
     $mtd_bayar = $_POST["metode_pembayaran"];
     $mtd_kirim = $_POST["metode_pengiriman"];
 
+
     // Memecah value dari metode pengiriman
     $mtd_kirim = explode("_", $mtd_kirim);
 

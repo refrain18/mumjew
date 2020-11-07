@@ -17,6 +17,19 @@
     
     // Cek Jika Data Diri Di Ubah
     if (!empty($_POST)) {
+
+        $nama_penerima = $_POST["nama_penerima"];
+        $nomor_telepon = $_POST["nomor_telepon"];
+        $kode_pos = $_POST["kode_pos"];
+
+        // validasi alamat
+        if(!preg_match("/^[a-zA-Z\s]*$/",$nama_penerima)){
+            header("location: ".BASE_URL."index.php?page=data-pemesan&edit=on&user_id=$user_id&notif=nama_penerima");
+        }elseif(strlen($kode_pos) < 5){
+            header("location: ".BASE_URL."index.php?page=data-pemesan&edit=on&user_id=$user_id&notif=kode_pos");         
+        }elseif(!preg_match("/^[0-9]*$/",$nomor_telepon)){
+            header("location: ".BASE_URL."index.php?page=data-pemesan&edit=on&user_id=$user_id&notif=nomor_telepon");    
+        }else{
         // Update Data
         $data_diri_baru = [
             'nm_penerima' => $_POST['nama_penerima'],
@@ -26,7 +39,10 @@
             'kode_pos' => $_POST['kode_pos'],
             'alamat' => $_POST['alamat']
         ];
+        }
     }
+        
+    
 
     // var_dump($post_data_diri, $data_diri_baru);
 
@@ -41,8 +57,7 @@
     $kode_pos = $row["kode_pos"];
     $alamat = $row["alamat"];
 
-    // var_dump($query,$user_id ,$row['alamat']);
-    // die();
+
 
     if($edit == 'on') {
         $akses = '';
@@ -54,6 +69,7 @@
         $hidden = 'hidden';
         $form_act = 'index.php?page=proses_pemesanan';
         $dis = '';
+  
     }
 ?>
 
@@ -65,6 +81,17 @@
 
         <form action="<?php echo BASE_URL.$form_act; ?>" method="POST">
 
+        <?php
+            $notif = isset($_GET['notif']) ? $_GET['notif'] : false;
+            
+            if($notif == 'nama_penerima') {
+                echo  "<div class='notif' id='notif'>Maaf, nama yang kamu masukan harus huruf</div>";
+            }elseif($notif == 'nomor_telepon'){
+                echo "<div class='notif' id='notif'>Maaf, nomor telepon yang dimasukan harus angka</div>";
+            }elseif ($notif == 'kode_pos'){ 
+                echo "<div class='notif' id='notif'>Maaf, kode pos harus 5 angka</div>"; 
+            }
+        ?>        
             <div class="element-form">
                 <label>Nama Penerima</label>	
                 <span><input type="text" name="nama_penerima" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['nm_penerima'] : $nama; ?>" <?php echo $akses?> required/></span>
@@ -72,7 +99,7 @@
 
             <div class="element-form">
                 <label>Nomor Telepon</label>	
-                <span><input style=" width : 98%; height : 23px;" type="number" name="nomor_telepon" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['no_tlp'] : $phone; ?>" <?php echo $akses?> required/></span>
+                <span><input style=" width : 98%; height : 23px;" type="phone" minlength="11" maxlength="12" name="nomor_telepon" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['no_tlp'] : $phone; ?>" <?php echo $akses?> required/></span>
             </div>	
 
             <div class="element-form">
@@ -99,7 +126,8 @@
 
             <div class="element-form">
                 <label>Kode Pos</label>
-                <span><input style=" width : 98%; height : 23px;" type="number" name="kode_pos" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['kode_pos'] : $kode_pos; ?>" <?php echo $akses?> required/></span>
+                <span><input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                style=" width : 98%; height : 23px;" min="0" maxlength="5" type="number" name="kode_pos" value="<?php echo !empty($data_diri_baru) ? $data_diri_baru['kode_pos'] : $kode_pos; ?>" <?php echo $akses?> required/></span>
             </div>
 
             <div class="element-form">
