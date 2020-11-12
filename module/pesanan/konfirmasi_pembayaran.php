@@ -43,7 +43,7 @@
 
             <div class="element-form">
                 <label>Tanggal Transfer (format: mm/dd/yyyy)</label>
-                <span><input type="date" name="tanggal_transfer" required/></span>
+                <span><input type="date" min="2020-11-10" max="2050-12-30" name="tanggal_transfer" required/></span>
             </div>
 
             <div class="element-form">

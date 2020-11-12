@@ -6,7 +6,8 @@
     $banner_id = isset($_GET['banner_id']) ? $_GET['banner_id'] : "";
     
 	$banner = isset($_POST['banner']) ? $_POST['banner'] : false;
-	$link = isset($_POST['link']) ? $_POST['link'] : false;
+	$barang_id = isset($_POST['barang_id']) ? $_POST['barang_id'] : false;
+    $link = "index.php?page=detail&barang_id=".$barang_id;
 	$status = isset($_POST['status']) ? $_POST['status'] : false;
      
     $edit_gambar = "";
@@ -26,7 +27,7 @@
             header("location: ".BASE_URL."index.php?page=my_profile&module=banner&action=form&notif=nlink&notif=gagal_add");
             die();    
         } else {
-        mysqli_query($koneksi, "INSERT INTO banner (banner, link, gambar, status) VALUES ('$banner', '$link', '$nama_file', '$status')"); 
+            mysqli_query($koneksi, "INSERT INTO banner (barang_id, banner, link, gambar, status) VALUES ('$barang_id', '$banner', '$link', '$nama_file', '$status')"); 
         }
     }elseif($button == "Update"){
         $query = mysqli_query($koneksi, "SELECT * FROM banner WHERE link='$link'");
@@ -34,7 +35,8 @@
             header("location: ".BASE_URL."index.php?page=my_profile&module=banner&action=form&notif=nlink&notif=gagal_update");
             die();    
         } else {
-        mysqli_query($koneksi, "UPDATE banner SET banner='$banner',
+        mysqli_query($koneksi, "UPDATE banner SET barang_id='$barang_id', 
+                                        banner='$banner',
                                         link='$link'
                                         $edit_gambar,
                                         status='$status'

@@ -168,8 +168,12 @@
 			<a href="<?php echo BASE_URL."index.php?page=my_profile&module=pesanan&action=status&pesanan_id=$pesanan_id"?>">Konfirmasi</a>.
 		</p>
 	<?php elseif($mtd_pembayaran == "Transfer" && $level == 'customer') :?>
+		
+		<?php
+			$deathline = date('d-m-Y 23:59', strtotime('+7 days', strtotime($tanggal_pemesanan)));;
+		?>
 		<p>
-			Silahkan lakukan pembayaran ke Bank ABC<br/>
+			Silahkan lakukan pembayaran ke Bank ABC sebelum tanggal <?php echo $deathline ?><br/>
 			Nomor Account : 0000-9999-8888 (D/W Mumtaza).<br/>
 			Setelah melakukan pembayaran silahkan lakukan konfirmasi pembayaran
 			<a href="<?php echo BASE_URL."index.php?page=my_profile&module=pesanan&action=konfirmasi_pembayaran&pesanan_id=$pesanan_id"?>">Disini</a>.

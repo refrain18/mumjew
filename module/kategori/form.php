@@ -40,15 +40,15 @@
 
     <div class="element-form">
         <label>Kategori</label>
-        <span><input type="text" name="kategori" value="<?php echo $kategori; ?>" /></span>
+        <span><input type="text" name="kategori" value="<?php echo $kategori; ?>" required/></span>
     </div>
 
     <div class="element-form">
         <label>Status</label>
         <span>
-              <input type="radio" name="status" value="on" <?php if($status == "on"){ echo "checked='true'"; } ?> />On
+              <input type="radio" name="status" value="on" <?php if($status == "on"){ echo "checked='true'"; } ?> required/>On
               <input type="radio" name="status" value="off" <?php if($status == "off"){ echo "checked='true'"; } ?> />Off
-        </span>
+        </span >
     </div>
 
     <div class="element-form">

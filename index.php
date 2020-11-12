@@ -121,8 +121,14 @@
 
         </div>
         
-        <div id="footer">
-            <p>Mumtaza Jewerly by Abka Zailani</p>
+        <div id="footer1" >
+            <p style="display: inline-block;">Kontak Kami :</p>
+            <p style="display: inline-block;">081211288172</p>
+            <p style="display: inline-block;">/</p>
+            <p style="display: inline-block;">mumtaza_jewerly@gmail.com</p>
+        <!-- </div>
+        <div id="footer" style="text-align: center;"> -->
+            <p style="display: inline-block; padding-left: 15cm;">&copy; Mumtaza Jewerly</p>
         </div>
 
     </div>

@@ -72,27 +72,28 @@
 
     <div class="element-form">
         <label>Nama Barang</label>
-        <span><input type="text" name="nama_barang" maxlength="32" value="<?php echo $nama_barang; ?>" /></span>
+        <span><input type="text" name="nama_barang" maxlength="32" value="<?php echo $nama_barang; ?>" required/></span>
     </div>
 
     <div style="margin-bottom:10px">
         <label style="font-weight:bold">Spesifikasi</label>
-        <span><textarea name="spesifikasi" id="editor"><?php echo $spesifikasi; ?></textarea></span>
+        <span><textarea name="spesifikasi" id="editor" required><?php echo $spesifikasi; ?></textarea></span>
     </div>
 
     <div class="element-form">
         <label>Stok</label>
-        <span><input type="text" name="stok" value="<?php echo $stok; ?>" /></span>
+        <span><input type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" 
+             min="0" maxlength="3" name="stok" value="<?php echo $stok; ?>" required/></span>
     </div>
 
     <div class="element-form">
         <label>Harga Distributor</label>
-        <span><input type="text" name="harga_distributor" value="<?php echo $harga_distributor; ?>" /></span>
+        <span><input type="number" style=" width : 98%; height : 23px;" name="harga_distributor" value="<?php echo $harga_distributor; ?>" required/></span>
     </div>
 
     <div class="element-form">
         <label>Harga</label>
-        <span><input type="text" name="harga" value="<?php echo $harga; ?>" /></span>
+        <span><input type="number" style=" width : 98%; height : 23px;" min="<?php echo $harga_distributor ?>" name="harga" value="<?php echo $harga; ?>" required/></span>
     </div>
 
     <div class="element-form">
@@ -104,7 +105,7 @@
         <label>Brand</label>
         <span>
         
-            <select name="bb_id">
+            <select name="bb_id" required>
                 <?php
                     $query = mysqli_query($koneksi, "SELECT bb_id, banner_branded FROM banner_branded WHERE status='on' ORDER BY banner_branded ASC");
                     while($row=mysqli_fetch_assoc($query)){
@@ -123,14 +124,14 @@
     <div class="element-form">
         <label>Gambar Produk <?php echo $keterangan_gambar; ?></label>
         <span>
-            <input type="file" name="file">  <?php echo $gambar; ?> 
+            <input type="file" name="file" value="<?php echo $gambar;?>">  <?php echo $gambar; ?> 
         </span>
     </div>
 
     <div class="element-form">
         <label>Status</label>
         <span>
-              <input type="radio" name="status" value="on" <?php if($status == "on"){ echo "checked='true'"; } ?> />On
+              <input type="radio" name="status" value="on" <?php if($status == "on"){ echo "checked='true'"; } ?> required/>On
               <input type="radio" name="status" value="off" <?php if($status == "off"){ echo "checked='true'"; } ?> />Off
         </span>
     </div>
