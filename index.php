@@ -128,7 +128,7 @@
             <p style="display: inline-block;">mumtaza_jewerly@gmail.com</p>
         <!-- </div>
         <div id="footer" style="text-align: center;"> -->
-            <p style="display: inline-block; padding-left: 15cm;">&copy; Mumtaza Jewerly</p>
+            <p style="display: inline-block; padding-left: 14.7cm;">&copy; 2020 Mumtaza Jewerly</p>
         </div>
 
     </div>

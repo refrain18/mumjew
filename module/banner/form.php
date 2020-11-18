@@ -37,6 +37,14 @@
 <form action="<?php echo BASE_URL."module/banner/action.php?banner_id=$banner_id"?>" method="post" enctype="multipart/form-data">
 	
 	<?php
+		$notif = isset($_GET['notif']) ? $_GET['notif'] : false;
+
+        if($notif == 'tipefile') {
+            echo "<div class='notif' id='notif'>Tipe file tidak didukung!</div>";
+        }elseif($notif == 'ukuranfile') {
+            echo "<div class='notif' id='notif'>Ukuran file tidak boleh lebih dari 1MB</div>";
+        }
+
 		if (isset($_GET['notif'])) {
 			echo notifTransaksi($_GET['notif'] ,"link");
 		}
@@ -44,7 +52,7 @@
 
 	<div class="element-form">
 		<label>Banner</label>	
-		<span><input type="text" name="banner" value="<?php echo $banner; ?>" /></span>
+		<span><input type="text" name="banner" value="<?php echo $banner; ?>" required/></span>
 	</div>	
 
     <div class="element-form">

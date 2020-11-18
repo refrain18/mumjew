@@ -44,6 +44,14 @@
 
     <?php
 
+        $notif = isset($_GET['notif']) ? $_GET['notif'] : false;
+
+        if($notif == 'tipefile') {
+            echo "<div class='notif' id='notif'>Tipe file tidak didukung!</div>";
+        }elseif($notif == 'ukuranfile') {
+            echo "<div class='notif' id='notif'>Ukuran file tidak boleh lebih dari 1MB</div>";
+        }
+
         if ( isset($_GET['notif']) ) {
             echo notifTransaksi($_GET['notif']);
         }

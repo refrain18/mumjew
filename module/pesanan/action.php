@@ -12,14 +12,23 @@
 	if($button == "Konfirmasi"){
 		
 		$user_id = $_SESSION["user_id"];
-
 		$tanggal_transfer = isset($_POST['tanggal_transfer']) ? $_POST['tanggal_transfer'] : false;
 
 		if($_FILES["file"]["name"] != "")
 		{
 			$bukti_pembayaran = $_FILES["file"]["name"];
-			move_uploaded_file($_FILES["file"]["tmp_name"], "../../images/bukti_pembayaran/" . $bukti_pembayaran);
-			 
+			$tipefile = $_FILES["file"]["type"];
+			$ukuranfile = $_FILES["file"]["size"];
+
+			if($tipefile != "image/jpeg" and $tipefile != "image/jpg" and $tipefile != "image/png"){
+				header("location: ".BASE_URL."index.php?page=my_profile&module=pesanan&action=konfirmasi_pembayaran&konfirmasi_id=$konfirmasi_id&notif=tipefile");
+                die();
+			}elseif ($ukuranfile >= 1000000) {
+				header("location: ".BASE_URL."index.php?page=my_profile&module=pesanan&action=konfirmasi_pembayaran&konfirmasi_id=$konfirmasi_id&notif=ukuranfile");
+				die();
+			}else{
+				move_uploaded_file($_FILES["file"]["tmp_name"], "../../images/bukti_pembayaran/" . $bukti_pembayaran);
+			} 
 		}
 
 		$queryPembayaran = mysqli_query($koneksi, "INSERT INTO 

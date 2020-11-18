@@ -19,29 +19,40 @@
 <form action="<?php echo BASE_URL."module/user/action.php?user_id=$user_id"?>" method="POST">
 
 	<?php
+		$notif = isset($_GET['notif']) ? $_GET['notif'] : false;
+
+        if($notif == 'nama') {
+            echo "<div class='notif' id='notif'>Maaf, nama yang kamu masukan harus huruf</div>";
+        }elseif($notif == 'phone'){
+            echo "<div class='notif' id='notif'>Maaf, nomor telepon yang dimasukan harus angka</div>";    
+        }elseif($notif == 'email'){
+            echo "<div class='notif' id='notif'>Maaf, email yang kamu masukan sudah terdaftar</div>";    
+		}	
 		if (isset($_GET['notif'])) {
 			echo notifTransaksi($_GET['notif'] ,"Email");
 		}
 	?>
-	  
+	 
+	 <input type="hidden" name="email_lama" value="<?php echo $email; ?>"> 
+
 	<div class="element-form">
 		<label>Nama Lengkap</label>	
-		<span><input type="text" name="nama" value="<?php echo $nama; ?>" /></span>
+		<span><input type="text" name="nama" value="<?php echo $nama; ?>" required/></span>
 	</div>	
 
 	<div class="element-form">
 		<label>Email</label>	
-		<span><input type="text" name="email" value="<?php echo $email; ?>" /></span>
+		<span><input type="email" style=" width : 98%; height : 23px;" name="email" value="<?php echo $email; ?>" required/></span>
 	</div>		
 
 	<div class="element-form">
 		<label>Phone</label>	
-		<span><input type="text" name="phone" value="<?php echo $phone; ?>" /></span>
+		<span><input type="phone" style=" width : 98%; height : 23px;" minlength="11" maxlength="12" name="phone" value="<?php echo $phone; ?>" required/></span>
 	</div>	
 
 	<div class="element-form">
 		<label>Alamat</label>	
-		<span><input type="text" name="alamat" value="<?php echo $alamat; ?>" /></span>
+		<span><input type="text" name="alamat" value="<?php echo $alamat; ?>" required/></span>
 	</div>		
 
 	<div class="element-form">

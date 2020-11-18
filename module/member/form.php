@@ -23,13 +23,21 @@
 
 <form action="<?php echo BASE_URL."module/member/action.php?no_member=$no_member"?>" method="post">
 	
-	<?php
+    <?php
+    
+    $notif = isset($_GET['notif']) ? $_GET['notif'] : false;
 
+    if($notif == 'idmember') {
+        echo "<div class='notif' id='notif'>Maaf, id member yang dimasukan sudah ada</div>";
+    }
+    
 	if ( isset($_GET['notif']) ) {
 		echo notifTransaksi($_GET['notif'],"member");
 	}
 
 	?>
+<input type="hidden" name="userid_lama" value="<?php echo $user_id; ?>">
+<input type="hidden" name="idmember_lama" value="<?php echo $id_member; ?>">
 
 <div class="element-form">
         <label>Nama Member</label>
@@ -53,13 +61,13 @@
 
 	<div class="element-form">
 		<label>Id Member </label>	
-		<span><input type="text" name="id_member" value="<?php echo $id_member; ?>" /></span>
+		<span><input type="text" minlength="5" maxlength="10" name="id_member" value="<?php echo $id_member; ?>" /></span>
 	</div>	  
 
 	<div class="element-form">
 		<label>Status</label>	
 		<span>
-			<input type="radio" value="on" name="status" <?php if($status == "on"){ echo "checked"; } ?> /> On
+			<input type="radio" value="on" name="status" <?php if($status == "on"){ echo "checked"; } ?> required/> On
 			<input type="radio" value="off" name="status" <?php if($status == "off"){ echo "checked"; } ?> /> Off		
 		</span>
 	</div>	   

@@ -6,7 +6,8 @@
     $gambar = "";
 	$keterangan_gambar = "";
     $status = "";
-       
+	$required = "required"; 
+	
     $button = "Add";
        
     if($bb_id != "")
@@ -20,6 +21,7 @@
 		$gambar = "<img src='". BASE_URL."images/bb-original/$row[gambar]' style='width: 200px;vertical-align: middle;' />";
 		$keterangan_gambar = "(klik 'Pilih Gambar' hanya jika tidak ingin mengganti gambar)";
 		$status = $row["status"];
+		$required = "";
     }   
 ?>
 
@@ -27,26 +29,35 @@
 	
 	<?php
 
+	$notif = isset($_GET['notif']) ? $_GET['notif'] : false;
+
+	if($notif == 'tipefile') {
+		echo "<div class='notif' id='notif'>Tipe file tidak didukung!</div>";
+	}elseif($notif == 'ukuranfile') {
+		echo "<div class='notif' id='notif'>Ukuran file tidak boleh lebih dari 1MB</div>";
+	}
+
 	if ( isset($_GET['notif']) ) {
 		echo notifTransaksi($_GET['notif'],"banner branded");
 	}
 
 	?>
+    <input type="hidden" name="banner_branded_lama" value="<?php echo $banner_branded; ?>">
 
 	<div class="element-form">
 		<label>Banner Branded</label>	
-		<span><input type="text" name="banner_branded" value="<?php echo $banner_branded; ?>" /></span>
+		<span><input type="text" name="banner_branded" value="<?php echo $banner_branded; ?>" required/></span>
 	</div>	
 
 	<div class="element-form">
 		<label>Gambar <?php echo $keterangan_gambar; ?></label>	
-		<span><input type="file" name="file" /><?php echo $gambar; ?></span>
+		<span><input type="file" name="file" $required/><?php echo $gambar; ?></span>
 	</div>	  
 
 	<div class="element-form">
 		<label>Status</label>	
 		<span>
-			<input type="radio" value="on" name="status" <?php if($status == "on"){ echo "checked"; } ?> /> On
+			<input type="radio" value="on" name="status" <?php if($status == "on"){ echo "checked"; } ?> required/> On
 			<input type="radio" value="off" name="status" <?php if($status == "off"){ echo "checked"; } ?> /> Off		
 		</span>
 	</div>	   

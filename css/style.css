@@ -11,7 +11,7 @@ body{
 }
 
 #container {
-    width: 1100px;
+    width: 1125px;
     height: auto;
     margin: 0px auto;
     padding: 10px;
@@ -168,7 +168,7 @@ body{
 
 #profile-content {
     float: left;
-    width: 835px;
+    width: 860px;
     padding: 10px;
     background: white;
 }
@@ -186,9 +186,10 @@ body{
     background: #E6E6E6;
 }
 
+
 .table-list tr th,
 .table-list tr td {
-    padding: 10px 7px;
+    padding: 14px 4px;
 }
 
 .kolom-nomor {
@@ -213,6 +214,8 @@ body{
     overflow: hidden;
 }
 
+
+
 .tombol-action {
     background: #08a164;
     color: white;
@@ -220,8 +223,9 @@ body{
     border-radius: 3px;
     cursor: pointer;
     text-decoration: none;
-    margin-right: 3px;
-    font-size: 9px;
+    display: -webkit-inline-box;
+    margin-bottom: 3px;
+    font-size: 11px;
 }
 
 .tombol-action:hover {

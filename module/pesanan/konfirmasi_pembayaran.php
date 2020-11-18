@@ -15,6 +15,7 @@
     $bukti_pembayaran = "<a target='_blank' href='".BASE_URL."images/bukti_pembayaran/$gambar'> <img src='".BASE_URL."images/bukti_pembayaran/$gambar' alt='bukti pembayaran' style='width: 200px; vertical-align: middle;'/>";
     $keterangan_gambar = "(Klik gambar jika ingin memperbesar)";
 
+
     ?>
 
         <form action=<?php echo BASE_URL."index.php?page=my_profile&module=pesanan&action=list"; ?> method="POST" enctype="multipart/form-data">
@@ -35,6 +36,16 @@
         </form> 
     <?php else : ?>
         <form action=<?php echo BASE_URL."module/pesanan/action.php?pesanan_id=$pesanan_id"; ?> method="POST" enctype="multipart/form-data">
+
+        <?php
+                $notif = isset($_GET['notif']) ? $_GET['notif'] : false;
+
+                if($notif == 'tipefile') {
+                    echo "<div class='notif' id='notif'>Tipe file tidak didukung!</div>";
+                }elseif($notif == 'ukuranfile') {
+                    echo "<div class='notif' id='notif'>Ukuran file tidak boleh lebih dari 1MB</div>";
+                }
+        ?>
 
             <div class="element-form">
                 <label>Bukti Pembayaran</label>
